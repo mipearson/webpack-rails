@@ -8,17 +8,17 @@ module Webpack
 
       def webpack_javascript_include_tag source
 
-        path = if Rails.env.production?
+        path = if ::Rails.env.production?
           webpack_manifest_asset_path source
         else
-          "http://localhost:3808/webpack/#{source}.js"
+          "http://#{request.host}:3808/webpack/#{source}.js"
         end
 
         javascript_include_tag path
       end
 
       def webpack_manifest_asset_path source
-        manifest = JSON.parse(File.read(Rails.root.join("public", "webpack", "manifest.json")))
+        manifest = JSON.parse(File.read(::Rails.root.join("public", "webpack", "manifest.json")))
 
         path = manifest["assetsByChunkName"][source]
         if path
