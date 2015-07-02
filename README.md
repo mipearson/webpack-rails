@@ -15,11 +15,27 @@
 
 # TODO
 
-* Development & production helpers
+* Production helper manifest caching
+
 * Generators:
   * package.json
   * webpack.config.js
   * Procfile
+
+* Barebones example webback.config.js & full-service react/css/etc
+
+* Configurable everything:
+ * dev server port
+ * webpack config location
+ * webpack binary location
+ * prod/dev mode
+ * source location
+ * destination location
+ * url relative location
+
+* Sanity checks:
+ * does our webpack binary exist?
+ * does webpack.config.js exist?
 
 * Integration tests:
  * Ensure sprockets, webpack, react works with generated webpack.config.js
