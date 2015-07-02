@@ -4,17 +4,20 @@ module Webpack
   module Rails
     module Helper
       include ActionView::Helpers::AssetUrlHelper
-      include ActionView::Helpers::AssetTagHelper
 
-      def webpack_javascript_include_tag source
+      def webpack_asset_path source, options={}
+        source = source.to_s
+        return "" unless source.present?
 
-        path = if ::Rails.env.production?
-          webpack_manifest_asset_path source
-        else
-          "http://#{request.host}:3808/webpack/#{source}.js"
+        if extname = compute_asset_extname(source, options)
+          source = "#{source}#{extname}"
         end
 
-        javascript_include_tag path
+        if ::Rails.env.production?
+          webpack_manifest_asset_path source
+        else
+          "http://#{request.host}:3808/webpack/#{source}"
+        end
       end
 
       def webpack_manifest_asset_path source
