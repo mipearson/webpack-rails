@@ -9,5 +9,8 @@ module Webpack
         include Webpack::Rails::Helper
       end
     end
+    rake_tasks do
+      load "tasks/webpack.rake"
+    end
   end
 end
