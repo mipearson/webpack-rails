@@ -6,6 +6,6 @@ namespace :webpack do
     webpack_bin = Rails.root.join("node_modules", ".bin", "webpack")
     FileUtils.mkdir_p destdir
 
-    system "#{webpack_bin} --json > #{destdir}/manifest.json"
+    sh "#{webpack_bin} --json > #{destdir}/manifest.json"
   end
 end
