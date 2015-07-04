@@ -2,12 +2,12 @@ module Webpack
   module Rails
     class Manifest
       class << self
-        def load_manifest
-          @manifest = JSON.parse(File.read(::Rails.root.join("public", "webpack", "manifest.json")))
+        def manifest
+          @manifest ||= JSON.parse(File.read(::Rails.root.join("public", "webpack", "manifest.json")))
         end
 
         def asset_path source
-          path = @manifest["assetsByChunkName"][source]
+          path = manifest["assetsByChunkName"][source]
           if path
             "/webpack/" + path
           else

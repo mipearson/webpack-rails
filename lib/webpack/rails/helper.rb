@@ -1,4 +1,5 @@
 require 'action_view'
+require 'webpack/rails/manifest'
 
 module Webpack
   module Rails
