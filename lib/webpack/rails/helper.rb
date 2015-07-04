@@ -14,20 +14,9 @@ module Webpack
         end
 
         if ::Rails.env.production?
-          webpack_manifest_asset_path source
+          Webpack::Rails::Manifest.asset_path(source)
         else
           "http://#{request.host}:3808/webpack/#{source}"
-        end
-      end
-
-      def webpack_manifest_asset_path source
-        manifest = JSON.parse(File.read(::Rails.root.join("public", "webpack", "manifest.json")))
-
-        path = manifest["assetsByChunkName"][source]
-        if path
-          "/webpack/" + path
-        else
-          raise "Can't find #{source} entry point in manifest.json"
         end
       end
     end
