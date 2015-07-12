@@ -15,8 +15,6 @@
 
 # TODO
 
-* Production helper manifest caching
-
 * Generators:
   * package.json
   * webpack.config.js
@@ -36,6 +34,13 @@
 * Sanity checks:
  * does our webpack binary exist?
  * does webpack.config.js exist?
+ * can we load the manifest? (in prod)
+ * can we talk to the webpack-dev-server (in dev)
 
 * Integration tests:
  * Ensure sprockets, webpack, react works with generated webpack.config.js
+
+## Ideas
+
+* Drive config via JSON, have webpack.config.js read same JSON?
+* Custom webpack-dev-server that exposes errors, stats, etc
