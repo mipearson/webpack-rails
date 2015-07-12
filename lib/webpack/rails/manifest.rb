@@ -12,7 +12,7 @@ module Webpack
         def asset_path source
           path = manifest["assetsByChunkName"][source]
           if path
-            "/#{Rails::config.webpack.public_path}/#{path}"
+            "/#{Rails::configuration.webpack.public_path}/#{path}"
           else
             raise "Can't find #{source} entry point in manifest.json"
           end
