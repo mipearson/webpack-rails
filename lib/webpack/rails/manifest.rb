@@ -6,7 +6,7 @@ module Webpack
     class Manifest
       class << self
         def manifest
-          @manifest ||= JSON.parse(File.read(::Rails.root.join(::Rails.configuration.webpack.manifest_file)))
+          @manifest ||= load_manifest
         end
 
         def asset_path source
@@ -16,6 +16,15 @@ module Webpack
           else
             raise "Can't find #{source} entry point in manifest.json"
           end
+        end
+
+        private
+
+        def load_manifest
+          path = ::Rails.root.join(::Rails.configuration.webpack.manifest_file)
+          JSON.parse(File.read(path))
+        rescue => e
+          raise "Could not load our webpack manifest from #{path} - have you run `rake webpack:compile`? (original error: #{e})"
         end
       end
     end

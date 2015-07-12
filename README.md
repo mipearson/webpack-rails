@@ -22,21 +22,6 @@
 
 * Barebones example webback.config.js & full-service react/css/etc
 
-* Configurable everything:
- * dev server port
- * webpack config location
- * webpack binary location
- * prod/dev mode
- * source location
- * destination location
- * url relative location
-
-* Sanity checks:
- * does our webpack binary exist?
- * does webpack.config.js exist?
- * can we load the manifest? (in prod)
- * can we talk to the webpack-dev-server (in dev)
-
 * Integration tests:
  * Ensure sprockets, webpack, react works with generated webpack.config.js
 
