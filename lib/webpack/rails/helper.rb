@@ -10,10 +10,6 @@ module Webpack
         source = source.to_s
         return "" unless source.present?
 
-        if extname = compute_asset_extname(source, options)
-          source = "#{source}#{extname}"
-        end
-
         if ::Rails.env.production?
           Webpack::Rails::Manifest.asset_path(source)
         else
