@@ -6,17 +6,13 @@ module Webpack
     class Manifest
       class << self
         def manifest
-          @manifest ||= if ::Rails.env.production?
-            JSON.parse(Net::HTTP.get(URI("http://#{request.host}:3808/webpack/manifest.json")))
-          else
-            JSON.parse(File.read(::Rails.root.join("public", "webpack", "manifest.json")))
-          end
+          @manifest ||= JSON.parse(File.read(::Rails.root.join(::Rails.configuration.webpack.manifest_file)))
         end
 
         def asset_path source
           path = manifest["assetsByChunkName"][source]
           if path
-            "/webpack/" + path
+            "/#{Rails::config.webpack.public_path}/#{path}"
           else
             raise "Can't find #{source} entry point in manifest.json"
           end

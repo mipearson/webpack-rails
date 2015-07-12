@@ -1,11 +1,11 @@
 namespace :webpack do
-  desc "Compile webpack bundles in to public/webpack"
+  desc "Compile webpack bundles"
   task compile: :environment do
     ENV["TARGET"] = 'production'
-    destdir = Rails.root.join("public", "webpack")
-    webpack_bin = Rails.root.join("node_modules", ".bin", "webpack")
-    FileUtils.mkdir_p destdir
+    manifest = ::Rails.root.join(::Rails.configuration.webpack.manifest_file)
+    webpack_bin = Rails.root.join(::Rails.configuration.webpack.binary)
+    FileUtils.mkdir_p File.dirname(manifest)
 
-    sh "#{webpack_bin} --json > #{destdir}/manifest.json"
+    sh "#{webpack_bin} --json > #{manifest}"
   end
 end

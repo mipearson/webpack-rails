@@ -9,6 +9,20 @@ module Webpack
         include Webpack::Rails::Helper
       end
     end
+
+    config.webpack = ActiveSupport::OrderedOptions.new
+    config.webpack.config_file = 'config/webpack.config.js'
+    config.webpack.binary = 'node_modules/.bin/webpack'
+
+    config.webpack.dev_server = ActiveSupport::OrderedOptions.new
+    config.webpack.dev_server.port = 3808
+    config.webpack.dev_server.binary = 'node_modules/.bin/webpack-dev-server'
+    config.webpack.dev_server.enabled = !::Rails.env.production?
+
+    config.webpack.public_path = 'webpack'
+    config.webpack.output_dir = "public/#{config.webpack.public_path}"
+    config.webpack.manifest_file = "#{config.webpack.output_dir}/manifest.json"
+
     rake_tasks do
       load "tasks/webpack.rake"
     end
