@@ -6,7 +6,13 @@ module Webpack
     class Manifest
       class << self
         def manifest
-          @manifest ||= load_manifest
+          if ::Rails.configuration.webpack.dev_server.enabled
+            # Don't cache if we're in dev server mode, manifest may change ...
+            load_manifest
+          else
+            # ... otherwise cache at class level, as JSON loading/parsing can be expensive
+            @manifest ||= load_manifest
+          end
         end
 
         def asset_path source
@@ -14,17 +20,19 @@ module Webpack
           if path
             "/#{::Rails::configuration.webpack.public_path}/#{path}"
           else
-            raise "Can't find #{source} entry point in manifest.json"
+            raise "Can't find entry point '#{source}' in webpack manifest"
           end
         end
 
         private
 
         def load_manifest
-          path = ::Rails.root.join(::Rails.configuration.webpack.manifest_file)
-          JSON.parse(File.read(path))
-        rescue => e
-          raise "Could not load our webpack manifest from #{path} - have you run `rake webpack:compile`? (original error: #{e})"
+          data = if ::Rails.configuration.webpack.dev_server.enabled
+            Net::HTTP.get("localhost", "/#{::Rails::configuration.webpack.public_path}/#{::Rails::configuration.webpack.manifest_filename}", ::Rails.configuration.webpack.dev_server.port)
+          else
+            File.read(::Rails.root.join(::Rails.configuration.webpack.output_dir, ::Rails.configuration.webpack.manifest_filename))
+          end
+          JSON.parse(data)
         end
       end
     end

@@ -10,11 +10,13 @@ module Webpack
         source = source.to_s
         return "" unless source.present?
 
+        path = Webpack::Rails::Manifest.asset_path(source)
+
         if ::Rails.configuration.webpack.dev_server.enabled
-          "http://#{request.host}:#{::Rails.configuration.webpack.dev_server.port}/#{::Rails.configuration.webpack.public_path}/#{source}"
-        else
-          Webpack::Rails::Manifest.asset_path(source)
+          path = "http://#{request.host}:#{::Rails.configuration.webpack.dev_server.port}#{path}"
         end
+
+        path
       end
     end
   end

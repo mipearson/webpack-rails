@@ -21,7 +21,7 @@ module Webpack
 
     config.webpack.public_path = 'webpack'
     config.webpack.output_dir = "public/#{config.webpack.public_path}"
-    config.webpack.manifest_file = "#{config.webpack.output_dir}/manifest.json"
+    config.webpack.manifest_filename = "manifest.json"
 
     rake_tasks do
       load "tasks/webpack.rake"
