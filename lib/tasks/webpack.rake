@@ -13,6 +13,6 @@ namespace :webpack do
       raise "Can't find our webpack config file at #{config_file}"
     end
 
-    sh "#{webpack_bin} --config #{config_file}"
+    sh "#{webpack_bin} --bail --config #{config_file}"
   end
 end
