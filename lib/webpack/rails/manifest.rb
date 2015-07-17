@@ -18,6 +18,8 @@ module Webpack
         def asset_path source
           path = manifest["assetsByChunkName"][source]
           if path
+            # Only use main entry if full refresh, manifest has not been updated and contains an array.
+            path = path.first if path.is_a? Array
             "/#{::Rails::configuration.webpack.public_path}/#{path}"
           else
             raise "Can't find entry point '#{source}' in webpack manifest"
