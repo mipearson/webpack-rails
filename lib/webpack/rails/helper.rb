@@ -6,17 +6,19 @@ module Webpack
     module Helper
       include ActionView::Helpers::AssetUrlHelper
 
-      def webpack_asset_path source, options={}
+      def webpack_asset_paths source, options={}
         source = source.to_s
         return "" unless source.present?
 
-        path = Webpack::Rails::Manifest.asset_path(source)
+        paths = Webpack::Rails::Manifest.asset_paths(source)
 
         if ::Rails.configuration.webpack.dev_server.enabled
-          path = "http://#{request.host}:#{::Rails.configuration.webpack.dev_server.port}#{path}"
+          paths.map! do |p|
+            "http://#{request.host}:#{::Rails.configuration.webpack.dev_server.port}#{p}"
+          end
         end
 
-        path
+        paths
       end
     end
   end

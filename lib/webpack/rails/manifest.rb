@@ -15,10 +15,13 @@ module Webpack
           end
         end
 
-        def asset_path source
-          path = manifest["assetsByChunkName"][source]
-          if path
-            "/#{::Rails::configuration.webpack.public_path}/#{path}"
+        def asset_paths source
+          paths = manifest["assetsByChunkName"][source]
+          if paths
+            # Can be either a string or an array of strings
+            [paths].flatten.map do |p|
+              "/#{::Rails::configuration.webpack.public_path}/#{p}"
+            end
           else
             raise "Can't find entry point '#{source}' in webpack manifest"
           end
