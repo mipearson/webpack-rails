@@ -2,7 +2,7 @@
 
 **webpack-rails** gives you tools to integrate Webpack in to an existing Ruby on Rails application.
 
-It will happily co-exist with sprockets, but does not rely on it for production fingerprinting or asset serving. It is designed with the assumption that if you're using Webpack, you treat Javascript as a first-class citizen. This means that you control the webpack config, package.json and run `npm install`.
+It will happily co-exist with sprockets, but does not use on it for production fingerprinting or asset serving. **webpack-rails** is designed with the assumption that if you're using Webpack you treat Javascript as a first-class citizen. This means that you control the webpack config, package.json and everything that webpack uses is provided via npm.
 
 In development mode [webpack-dev-server](http://webpack.github.io/docs/webpack-dev-server.html) is used to serve webpack'd entry points and offer hot module reloading. In production entry points are built in to `public/webpack`. **webpack-rails** uses [stats-webpack-plugin](https://www.npmjs.com/package/stats-webpack-plugin) to translate entry points in to asset paths.
 
