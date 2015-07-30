@@ -7,6 +7,7 @@
     "node-libs-browser": "^0.5.2",
     "react": "^0.13.3",
     "react-hot-loader": "^1.2.7",
+    "stats-webpack-plugin": "^0.2.1",
     "webpack": "^1.9.11",
     "webpack-dev-server": "^1.9.0"
   }
