@@ -31,11 +31,28 @@ module Webpack
 
         def load_manifest
           data = if ::Rails.configuration.webpack.dev_server.enabled
-            Net::HTTP.get("localhost", "/#{::Rails::configuration.webpack.public_path}/#{::Rails::configuration.webpack.manifest_filename}", ::Rails.configuration.webpack.dev_server.port)
+            load_dev_server_manifest
           else
-            File.read(::Rails.root.join(::Rails.configuration.webpack.output_dir, ::Rails.configuration.webpack.manifest_filename))
+            load_static_manifest
           end
           JSON.parse(data)
+        end
+
+        def load_dev_server_manifest
+          Net::HTTP.get(
+            "localhost",
+            "/#{::Rails::configuration.webpack.public_path}/#{::Rails::configuration.webpack.manifest_filename}",
+            ::Rails.configuration.webpack.dev_server.port
+          )
+        end
+
+        def load_static_manifest
+          File.read(
+            ::Rails.root.join(
+              ::Rails.configuration.webpack.output_dir,
+              ::Rails.configuration.webpack.manifest_filename
+            )
+          )
         end
       end
     end
