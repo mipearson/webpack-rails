@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    webpack_rails (0.0.1)
+    webpack-rails (0.9.0)
       rails (~> 4.2.2)
 
 GEM
@@ -44,6 +44,7 @@ GEM
       tzinfo (~> 1.1)
     arel (6.0.0)
     builder (3.2.2)
+    diff-lcs (1.2.5)
     erubis (2.7.0)
     globalid (0.3.5)
       activesupport (>= 4.1.0)
@@ -86,9 +87,22 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rake (10.4.2)
+    rspec (3.2.0)
+      rspec-core (~> 3.2.0)
+      rspec-expectations (~> 3.2.0)
+      rspec-mocks (~> 3.2.0)
+    rspec-core (3.2.2)
+      rspec-support (~> 3.2.0)
+    rspec-expectations (3.2.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.2.0)
+    rspec-mocks (3.2.1)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.2.0)
+    rspec-support (3.2.2)
     sprockets (3.2.0)
       rack (~> 1.0)
-    sprockets-rails (2.3.1)
+    sprockets-rails (2.3.2)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
@@ -101,7 +115,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  webpack_rails!
+  rspec
+  webpack-rails!
 
 BUNDLED WITH
-   1.10.4
+   1.10.6
