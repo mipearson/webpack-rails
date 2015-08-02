@@ -4,6 +4,16 @@ require 'uri'
 module Webpack
   module Rails
     class Manifest
+
+      class ManifestLoadError < StandardError
+        def initialize message, orig
+          super "#{message} (original error #{orig})"
+        end
+      end
+
+      class EntryPointMissingError < StandardError
+      end
+
       class << self
         def manifest
           if ::Rails.configuration.webpack.dev_server.enabled
@@ -23,7 +33,7 @@ module Webpack
               "/#{::Rails::configuration.webpack.public_path}/#{p}"
             end
           else
-            raise "Can't find entry point '#{source}' in webpack manifest"
+            raise EntryPointMissingError, "Can't find entry point '#{source}' in webpack manifest"
           end
         end
 
@@ -44,6 +54,8 @@ module Webpack
             "/#{::Rails::configuration.webpack.public_path}/#{::Rails::configuration.webpack.manifest_filename}",
             ::Rails.configuration.webpack.dev_server.port
           )
+        rescue => e
+          raise ManifestLoadError, "Could not load manifest from webpack-dev-server - is it running, and is stats-webpack-plugin loaded?", e
         end
 
         def load_static_manifest
@@ -53,6 +65,8 @@ module Webpack
               ::Rails.configuration.webpack.manifest_filename
             )
           )
+        rescue => e
+          raise ManifestLoadError, "Could not load compiled manifest - have you run `rake webpack:compile`?", e
         end
       end
     end
