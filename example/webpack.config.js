@@ -16,7 +16,6 @@ var production = process.env.TARGET === 'production';
 var config = {
   entry: {
     // Sources are expected to live in $app_root/webpack
-    // Entry points require extensions.
     'entry_a': './webpack/entry/entry_a.js',
     'entry_b': './webpack/entry/entry_b.js'
   },
@@ -54,12 +53,6 @@ if (production) {
     new webpack.optimize.OccurenceOrderPlugin()
   ]);
 } else {
-  config.devServer = {
-    port: devServerPort,
-    headers: { 'Access-Control-Allow-Origin': '*' }
-  };
-  config.output.publicPath = '//localhost:' + devServerPort + '/webpack/';
-  // Source maps
   config.devtool = 'cheap-module-eval-source-map';
 }
 

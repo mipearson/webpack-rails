@@ -21,7 +21,6 @@ var hotReload = !production && !process.env.NO_HOT_RELOAD;
 var config = {
   entry: {
     // Sources are expected to live in $app_root/webpack
-    // Entry points require extensions.
     'entry_a': './webpack/entry/entry_a.js',
     'entry_b': './webpack/entry/entry_b.js'
   },

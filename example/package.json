@@ -1,5 +1,5 @@
 {
-  "name": "rails-webpack-sprockets-demo",
+  "name": "webpack-rails",
   "version": "0.0.1",
   "license": "MIT",
   "dependencies": {

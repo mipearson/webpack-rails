@@ -37,6 +37,7 @@ Add `rake webpack:compile` to your deployment step. It should run at around the 
 ## TODO
 
 * Drive config via JSON, have webpack.config.js read same JSON?
+* Generators for webpack config, Gemfile, Procfile, package.json
 * Custom webpack-dev-server that exposes errors, stats, etc
 * [react-rails](https://github.com/reactjs/react-rails) precompilation support
 * Unit & integration tests
