@@ -1,8 +1,6 @@
 // Example webpack configuration with asset fingerprinting in production.
 'use strict';
 
-// jshint camelcase:false
-
 var path = require('path');
 var webpack = require('webpack');
 var StatsPlugin = require('stats-webpack-plugin');
@@ -24,7 +22,7 @@ var config = {
     // Build assets directly in to public/webpack/, let webpack know
     // that all webpacked assets start with webpack/
 
-    // must match config.webpack.public_path and config.webpack.output_dir
+    // must match config.webpack.output_dir
     path: path.join(__dirname, '..', 'public', 'webpack'),
     publicPath: '/webpack/',
 
@@ -54,6 +52,9 @@ if (production) {
   ]);
 } else {
   config.devtool = 'cheap-module-eval-source-map';
+  config.devServer = {
+    port: devServerPort
+  };
 }
 
 module.exports = config;

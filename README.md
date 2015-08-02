@@ -26,6 +26,15 @@ To access webpacked assets from your views:
 
 Take note of the splat (`*`): `webpack_asset_paths` returns an array, as one entry point can map to multiple paths, especially if hot reloading is enabled in Webpack.
 
+### Configuration Defaults
+
+  * Webpack configuration lives in `config/webpack.config.js`
+  * Webpack & Webpack Dev Server binaries are in `node_modules/.bin/`
+  * Webpack Dev Server will run on port 3808 on localhost
+  * Webpack Dev Server is enabled in development & test, but not in production
+  * Webpacked assets will be compiled to `public/webpack`
+  * The manifest file is named `manifest.json`
+
 ### Working with browser tests
 
 In development, we make sure that the `webpack-dev-server` is running when browser tests are running. In CI, we manually run `webpack` to compile the assets to public and set `config.webpack.dev_server.enabled` to false.
@@ -41,7 +50,7 @@ Add `rake webpack:compile` to your deployment. It serves a similar purpose as Sp
 * Custom webpack-dev-server that exposes errors, stats, etc
 * [react-rails](https://github.com/reactjs/react-rails) precompilation support
 * Unit & integration tests
-# RDoc
+* RDoc
 
 ## Acknowledgements
 
