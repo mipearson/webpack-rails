@@ -51,23 +51,34 @@ module Webpack
         def load_dev_server_manifest
           Net::HTTP.get(
             "localhost",
-            "/#{::Rails::configuration.webpack.public_path}/#{::Rails::configuration.webpack.manifest_filename}",
+            dev_server_path,
             ::Rails.configuration.webpack.dev_server.port
           )
         rescue => e
-          raise ManifestLoadError, "Could not load manifest from webpack-dev-server - is it running, and is stats-webpack-plugin loaded?", e
+          raise ManifestLoadError.new("Could not load manifest from webpack-dev-server at #{dev_server_url} - is it running, and is stats-webpack-plugin loaded?", e)
         end
 
         def load_static_manifest
-          File.read(
-            ::Rails.root.join(
-              ::Rails.configuration.webpack.output_dir,
-              ::Rails.configuration.webpack.manifest_filename
-            )
-          )
+          File.read(static_manifest_path)
         rescue => e
-          raise ManifestLoadError, "Could not load compiled manifest - have you run `rake webpack:compile`?", e
+          raise ManifestLoadError, "Could not load compiled manifest from #{static_manifest_path} - have you run `rake webpack:compile`?", e
         end
+
+        def static_manifest_path
+          ::Rails.root.join(
+            ::Rails.configuration.webpack.output_dir,
+            ::Rails.configuration.webpack.manifest_filename
+          )
+        end
+
+        def dev_server_path
+          "/#{::Rails::configuration.webpack.public_path}/#{::Rails::configuration.webpack.manifest_filename}"
+        end
+
+        def dev_server_url
+          "http://localhost:#{::Rails.configuration.webpack.dev_server.port}#{dev_server_path}"
+        end
+
       end
     end
   end

@@ -20,6 +20,7 @@ module Webpack
     config.webpack.dev_server.enabled = !::Rails.env.production?
 
     config.webpack.output_dir = "public/webpack"
+    config.webpack.public_path = "webpack"
     config.webpack.manifest_filename = "manifest.json"
 
     rake_tasks do
