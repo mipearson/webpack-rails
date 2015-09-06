@@ -3,10 +3,13 @@ require "rails"
 require "webpack/rails"
 require 'webmock/rspec'
 
-# Configure Rails Environment
-ENV["RAILS_ENV"] = "test"
+module Dummy
+  class Application < Rails::Application
+    config.eager_load = false
+  end
+end
 
-require File.expand_path("../dummy/config/environment.rb",  __FILE__)
+Rails.application.initialize!
 
 # Load support files
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
