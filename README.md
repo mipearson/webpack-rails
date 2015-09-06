@@ -1,5 +1,7 @@
 # webpack-rails
 
+[![Build Status](https://travis-ci.org/mipearson/webpack-rails.svg?branch=master)](https://travis-ci.org/mipearson/webpack-rails)
+
 **webpack-rails** gives you tools to integrate Webpack in to an existing Ruby on Rails application.
 
 It will happily co-exist with sprockets but does not use it for production fingerprinting or asset serving. **webpack-rails** is designed with the assumption that if you're using Webpack you treat Javascript as a first-class citizen. This means that you control the webpack config, package.json, and use npm to install Webpack & its plugins.
