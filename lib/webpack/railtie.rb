@@ -4,7 +4,7 @@ require 'webpack/rails/helper'
 
 module Webpack
   class Railtie < ::Rails::Railtie
-    config.after_initialize do |_app|
+    config.after_initialize do
       ActiveSupport.on_load(:action_view) do
         include Webpack::Rails::Helper
       end
