@@ -4,6 +4,7 @@ require "webpack/rails"
 require 'webmock/rspec'
 
 module Dummy
+  # :nodoc:
   class Application < Rails::Application
     config.eager_load = false
   end

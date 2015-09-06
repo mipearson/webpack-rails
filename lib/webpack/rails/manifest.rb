@@ -3,27 +3,21 @@ require 'uri'
 
 module Webpack
   module Rails
+    # Webpack manifest loading, caching & entry point retrieval
     class Manifest
+      # Raised if we can't read our webpack manifest for whatever reason
       class ManifestLoadError < StandardError
         def initialize(message, orig)
           super "#{message} (original error #{orig})"
         end
       end
 
+      # Raised if a supplied entry point does not exist in the webpack manifest
       class EntryPointMissingError < StandardError
       end
 
       class << self
-        def manifest
-          if ::Rails.configuration.webpack.dev_server.enabled
-            # Don't cache if we're in dev server mode, manifest may change ...
-            load_manifest
-          else
-            # ... otherwise cache at class level, as JSON loading/parsing can be expensive
-            @manifest ||= load_manifest
-          end
-        end
-
+        # :nodoc:
         def asset_paths(source)
           paths = manifest["assetsByChunkName"][source]
           if paths
@@ -37,6 +31,16 @@ module Webpack
         end
 
         private
+
+        def manifest
+          if ::Rails.configuration.webpack.dev_server.enabled
+            # Don't cache if we're in dev server mode, manifest may change ...
+            load_manifest
+          else
+            # ... otherwise cache at class level, as JSON loading/parsing can be expensive
+            @manifest ||= load_manifest
+          end
+        end
 
         def load_manifest
           data = if ::Rails.configuration.webpack.dev_server.enabled

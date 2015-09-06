@@ -47,13 +47,19 @@ If you're using `[chunkhash]` in your build asset filenames (which you should be
 
 ## TODO
 
+* Release gem
+* travisci & codeclimate & gem badges
 * Drive config via JSON, have webpack.config.js read same JSON?
 * Generators for webpack config, Gemfile, Procfile, package.json
 * Custom webpack-dev-server that exposes errors, stats, etc
 * [react-rails](https://github.com/reactjs/react-rails) fork for use with this workflow
 * Integration tests
-* RDoc
-* Rubocop
+
+## Contributing
+
+Pull requests & issues welcome. Advice & criticism regarding webpack config approach also welcome.
+
+Please ensure that pull requests pass both rubocop & rspec. New functionality should be discussed in an issue first.
 
 ## Acknowledgements
 

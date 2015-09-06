@@ -3,6 +3,7 @@ require 'rails/railtie'
 require 'webpack/rails/helper'
 
 module Webpack
+  # :nodoc:
   class Railtie < ::Rails::Railtie
     config.after_initialize do
       ActiveSupport.on_load(:action_view) do
