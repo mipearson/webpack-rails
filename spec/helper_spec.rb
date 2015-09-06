@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'webpack_asset_paths' do
   let(:source) { 'entry_point' }
-  let(:asset_paths) { %w{/a/a.js /b/b.js} }
+  let(:asset_paths) { %w(/a/a.js /b/b.js) }
 
   include Webpack::Rails::Helper
 

@@ -1,0 +1,96 @@
+# Reference:
+# https://github.com/bbatsov/rubocop/blob/v0.33.0/config/default.yml
+# https://github.com/bbatsov/rubocop/blob/v0.33.0/config/enabled.yml
+# https://github.com/bbatsov/rubocop/blob/v0.33.0/config/enabled.yml
+
+# Many of the variations are because rubocop prefers things to look like:
+# foo = foo(a,
+#           b
+#          )
+#
+# where we prefer:
+# foo = foo(a,
+#   b
+# )
+
+AllCops:
+  DisplayCopNames: true
+  DisplayStyleGuide: true
+  Exclude:
+    - "*.gemspec"
+
+# Don't force end alignment to be versus the opening if/while - it should
+# be with the code flow, which isn't an option.
+Lint/EndAlignment:
+  Enabled: false
+
+# Can't configure it to force last argument to be via code flow, so we ignore the rule
+Style/AlignHash:
+  EnforcedLastArgumentHashStyle: always_ignore
+
+# indent call parameters against code flow, not method call opening
+Style/AlignParameters:
+  EnforcedStyle: with_fixed_indentation
+
+# indent case statements against code flow, not assignment
+Style/CaseIndentation:
+  IndentWhenRelativeTo: end
+
+# indents against opening paren, not code flow
+Style/ClosingParenthesisIndentation:
+  Enabled: false
+
+# if branches should be indented against code flow, not if
+Style/ElseAlignment:
+  Enabled: false
+
+# indent first param on next line against code flow, not opening statement
+Style/FirstParameterIndentation:
+  EnforcedStyle: consistent
+
+# sprintf is much more common than format
+Style/FormatString:
+  EnforcedStyle: format
+
+# hashes should be indented against code flow, not assignment
+Style/IndentHash:
+  EnforcedStyle: consistent
+
+# indents against opening block, not code flow
+Style/IndentationWidth:
+  Enabled: false
+
+# align with code flow
+Style/MultilineOperationIndentation:
+  EnforcedStyle: indented
+
+# different methods calls that do exactly the same thing are a smell, regardless of semantics
+Style/SignalException:
+  EnforcedStyle: only_raise
+
+# we don't care whether you use ' or "
+Style/StringLiterals:
+  Enabled: false
+
+# "Refactor" severity - intended as warnings, not violations
+Metrics/LineLength:
+  Severity: refactor
+  Max: 180
+
+Metrics/ClassLength:
+  Severity: refactor
+  Max: 300
+
+Metrics/MethodLength:
+  Max: 30
+  Severity: refactor
+
+Metrics/CyclomaticComplexity:
+  Max: 10
+  Severity: refactor
+
+Metrics/PerceivedComplexity:
+  Severity: refactor
+
+Metrics/AbcSize:
+  Severity: refactor

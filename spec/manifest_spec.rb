@@ -23,7 +23,7 @@ describe "Webpack::Rails::Manifest" do
     end
 
     it "should error on a missing entry point" do
-      expect {Webpack::Rails::Manifest.asset_paths("herp")}.to raise_error(Webpack::Rails::Manifest::EntryPointMissingError)
+      expect { Webpack::Rails::Manifest.asset_paths("herp") }.to raise_error(Webpack::Rails::Manifest::EntryPointMissingError)
     end
   end
 
@@ -49,7 +49,7 @@ describe "Webpack::Rails::Manifest" do
         ::Rails.configuration.webpack.manifest_filename = "broken.json"
         stub_request(:get, "http://localhost:2000/public_path/broken.json").to_raise(SocketError)
 
-        expect {Webpack::Rails::Manifest.asset_paths("entry1")}.to raise_error(Webpack::Rails::Manifest::ManifestLoadError)
+        expect { Webpack::Rails::Manifest.asset_paths("entry1") }.to raise_error(Webpack::Rails::Manifest::ManifestLoadError)
       end
     end
   end
@@ -66,7 +66,7 @@ describe "Webpack::Rails::Manifest" do
       it "should error if we can't find the manifest" do
         ::Rails.configuration.webpack.manifest_filename = "broken.json"
         allow(File).to receive(:read).with(::Rails.root.join("manifest_output/broken.json")).and_raise(Errno::ENOENT)
-        expect {Webpack::Rails::Manifest.asset_paths("entry1")}.to raise_error(Webpack::Rails::Manifest::ManifestLoadError)
+        expect { Webpack::Rails::Manifest.asset_paths("entry1") }.to raise_error(Webpack::Rails::Manifest::ManifestLoadError)
       end
     end
   end

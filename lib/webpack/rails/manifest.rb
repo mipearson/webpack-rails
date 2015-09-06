@@ -4,9 +4,8 @@ require 'uri'
 module Webpack
   module Rails
     class Manifest
-
       class ManifestLoadError < StandardError
-        def initialize message, orig
+        def initialize(message, orig)
           super "#{message} (original error #{orig})"
         end
       end
@@ -25,12 +24,12 @@ module Webpack
           end
         end
 
-        def asset_paths source
+        def asset_paths(source)
           paths = manifest["assetsByChunkName"][source]
           if paths
             # Can be either a string or an array of strings
             [paths].flatten.map do |p|
-              "/#{::Rails::configuration.webpack.public_path}/#{p}"
+              "/#{::Rails.configuration.webpack.public_path}/#{p}"
             end
           else
             raise EntryPointMissingError, "Can't find entry point '#{source}' in webpack manifest"
@@ -72,7 +71,7 @@ module Webpack
         end
 
         def dev_server_path
-          "/#{::Rails::configuration.webpack.public_path}/#{::Rails::configuration.webpack.manifest_filename}"
+          "/#{::Rails.configuration.webpack.public_path}/#{::Rails.configuration.webpack.manifest_filename}"
         end
 
         def dev_server_url

@@ -4,7 +4,7 @@ require 'webpack/rails/manifest'
 module Webpack
   module Rails
     module Helper
-      def webpack_asset_paths source, options={}
+      def webpack_asset_paths(source, _options = {})
         return "" unless source.present?
 
         paths = Webpack::Rails::Manifest.asset_paths(source)
