@@ -1,6 +1,7 @@
 require "rspec"
 require "rails"
 require "webpack/rails"
+require 'webmock/rspec'
 
 # Configure Rails Environment
 ENV["RAILS_ENV"] = "test"

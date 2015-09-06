@@ -46,15 +46,26 @@ var config = {
 };
 
 if (production) {
-  config.plugins = config.plugins.concat([
-    new webpack.optimize.UglifyJsPlugin(),
+  config.plugins.push(
+    new webpack.NoErrorsPlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+      compressor: { warnings: false },
+      sourceMap: false
+    }),
+    new webpack.DefinePlugin({
+      'process.env': { NODE_ENV: JSON.stringify('production') }
+    }),
+    new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurenceOrderPlugin()
-  ]);
+  );
 } else {
-  config.devtool = 'cheap-module-eval-source-map';
   config.devServer = {
-    port: devServerPort
+    port: devServerPort,
+    headers: { 'Access-Control-Allow-Origin': '*' }
   };
+  config.output.publicPath = '//localhost:' + devServerPort + '/webpack/';
+  // Source maps
+  config.devtool = 'cheap-module-eval-source-map';
 }
 
 module.exports = config;

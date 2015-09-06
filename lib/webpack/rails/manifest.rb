@@ -61,7 +61,7 @@ module Webpack
         def load_static_manifest
           File.read(static_manifest_path)
         rescue => e
-          raise ManifestLoadError, "Could not load compiled manifest from #{static_manifest_path} - have you run `rake webpack:compile`?", e
+          raise ManifestLoadError.new("Could not load compiled manifest from #{static_manifest_path} - have you run `rake webpack:compile`?", e)
         end
 
         def static_manifest_path
@@ -78,7 +78,6 @@ module Webpack
         def dev_server_url
           "http://localhost:#{::Rails.configuration.webpack.dev_server.port}#{dev_server_path}"
         end
-
       end
     end
   end

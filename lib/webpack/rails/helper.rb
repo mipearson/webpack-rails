@@ -5,7 +5,6 @@ module Webpack
   module Rails
     module Helper
       def webpack_asset_paths source, options={}
-        source = source.to_s
         return "" unless source.present?
 
         paths = Webpack::Rails::Manifest.asset_paths(source)

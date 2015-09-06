@@ -8,7 +8,7 @@ In development mode [webpack-dev-server](http://webpack.github.io/docs/webpack-d
 
 It was designed for use at [Marketplacer](http://www.marketplacer.com) to assist us in migrating our Javascript (and possibly our SCSS) off of Sprockets. It first saw production use in June 2015.
 
-As this is pre-1.0 software its API and configuration may change as we become more familiar with Webpack.
+As this is pre-1.0 software its API and configuration may change as we become more familiar with Webpack. This gem has been developed against Ruby 2.2 and Rails 4.2. Previous versions might work, but I haven't tested them. Assume Rails 3.2 and Ruby 1.9 as an absolute minimum.
 
 ## Getting Started
 
@@ -43,14 +43,17 @@ In development, we make sure that the `webpack-dev-server` is running when brows
 
 Add `rake webpack:compile` to your deployment. It serves a similar purpose as Sprockets' `assets:precompile` task. If you're using Webpack and Sprockets (as we are at Marketplacer) you'll need to run both tasks - but it doesn't matter which order they're run in.
 
+If you're using `[chunkhash]` in your build asset filenames (which you should be, if you want to cache them in production), you'll need to persist built assets between deployments. Consider in-flight requests at the time of deployment: they'll receive paths based on the old `manifest.json`, not the new one.
+
 ## TODO
 
 * Drive config via JSON, have webpack.config.js read same JSON?
 * Generators for webpack config, Gemfile, Procfile, package.json
 * Custom webpack-dev-server that exposes errors, stats, etc
-* [react-rails](https://github.com/reactjs/react-rails) precompilation support
-* Unit & integration tests
+* [react-rails](https://github.com/reactjs/react-rails) fork for use with this workflow
+* Integration tests
 * RDoc
+* Rubocop
 
 ## Acknowledgements
 
