@@ -16,6 +16,7 @@ module Webpack
     config.webpack.binary = 'node_modules/.bin/webpack'
 
     config.webpack.dev_server = ActiveSupport::OrderedOptions.new
+    config.webpack.dev_server.host = 'localhost'
     config.webpack.dev_server.port = 3808
     config.webpack.dev_server.binary = 'node_modules/.bin/webpack-dev-server'
     config.webpack.dev_server.enabled = !::Rails.env.production?

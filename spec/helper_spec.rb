@@ -15,7 +15,7 @@ describe 'webpack_asset_paths' do
     expect(webpack_asset_paths source).to eq(asset_paths)
   end
 
-  it "should have the user talk to the dev server if it's enabled for each path returned from the manifest" do
+  it "should have the user talk to the dev server if it's enabled for each path returned from the manifest defaulting to localhost" do
     ::Rails.configuration.webpack.dev_server.enabled = true
     ::Rails.configuration.webpack.dev_server.port = 4000
 
@@ -23,4 +23,16 @@ describe 'webpack_asset_paths' do
       "http://localhost:4000/a/a.js", "http://localhost:4000/b/b.js"
     ])
   end
+
+  it "should have the user talk to the specified dev server if it's enabled for each path returned from the manifest" do
+    ::Rails.configuration.webpack.dev_server.enabled = true
+    ::Rails.configuration.webpack.dev_server.port = 4000
+    ::Rails.configuration.webpack.dev_server.host = 'webpack.host'
+
+
+    expect(webpack_asset_paths source).to eq([
+      "http://webpack.host:4000/a/a.js", "http://webpack.host:4000/b/b.js"
+    ])
+  end
+
 end
