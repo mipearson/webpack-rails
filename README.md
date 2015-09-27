@@ -1,6 +1,6 @@
-# webpack-rails
+[![Build Status](https://travis-ci.org/mipearson/webpack-rails.svg?branch=master)](https://travis-ci.org/mipearson/webpack-rails) [![Gem Version](https://badge.fury.io/rb/webpack-rails.svg)](http://badge.fury.io/rb/webpack-rails)
 
-[![Build Status](https://travis-ci.org/mipearson/webpack-rails.svg?branch=master)](https://travis-ci.org/mipearson/webpack-rails)
+# webpack-rails
 
 **webpack-rails** gives you tools to integrate Webpack in to an existing Ruby on Rails application.
 
@@ -51,7 +51,6 @@ If you're using `[chunkhash]` in your build asset filenames (which you should be
 
 ## TODO
 
-* Release gem
 * travisci & codeclimate & gem badges
 * Drive config via JSON, have webpack.config.js read same JSON?
 * Generators for webpack config, Gemfile, Procfile, package.json
