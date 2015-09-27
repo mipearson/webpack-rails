@@ -10,11 +10,11 @@ Gem::Specification.new do |s|
   s.authors     = ["Michael Pearson"]
   s.email       = ["mipearson@gmail.com"]
   s.homepage    = "http://github.com/mipearson/webpack-rails"
-  s.summary     = "Webpack & Rails integration toolset"
-  s.description = "webpack-dev-server usage in development and dynamic asset filenames in production via clever helpers"
+  s.summary     = "Webpack & Rails integration made easier"
+  s.description = "Production-tested, JavaScript-first tooling to use webpack within your Rails application"
   s.license     = "MIT"
 
-  s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
+  s.files = Dir["{app,config,db,lib,examples}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "rails", ">= 3.2.0"

@@ -14,6 +14,8 @@ As this is pre-1.0 software its API and configuration may change as we become mo
 
 ## Getting Started
 
+**We have a demo application: [webpack-rails-demo](https://github.com/mipearson/webpack-rails-demo)**
+
 Have a look at the files in the `examples` directory. Of note:
 
   * We use [foreman](https://github.com/ddollar/foreman) and a `Procfile` to run our rails server & the webpack dev server in development at the same time
