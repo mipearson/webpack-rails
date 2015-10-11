@@ -10,7 +10,9 @@ In development mode [webpack-dev-server](http://webpack.github.io/docs/webpack-d
 
 It was designed for use at [Marketplacer](http://www.marketplacer.com) to assist us in migrating our Javascript (and possibly our SCSS) off of Sprockets. It first saw production use in June 2015.
 
-As this is pre-1.0 software its API and configuration may change as we become more familiar with Webpack. This gem has been developed against Ruby 2.2 and Rails 4.2. Previous versions might work, but I haven't tested them. Assume Rails 3.2 and Ruby 1.9 as an absolute minimum.
+Our examples show **webpack-rails** co-existing with sprockets (as that's how environment works), but sprockets is not used or required for development or production use of this gem.
+
+This gem has been tested against Rails 4.2 and Ruby 2.2. Earlier versions of Rails (>= 3.2) and Ruby (>= 1.9) may work, but we haven't tested them.
 
 ## Getting Started
 
