@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    webpack-rails (0.9.2)
+    webpack-rails (0.9.3)
       rails (>= 3.2.0)
 
 GEM
