@@ -14,23 +14,37 @@ Our examples show **webpack-rails** co-existing with sprockets (as that's how en
 
 This gem has been tested against Rails 4.2 and Ruby 2.2. Earlier versions of Rails (>= 3.2) and Ruby (>= 1.9) may work, but we haven't tested them.
 
-## Getting Started
+## Using webpack-rails
 
 **We have a demo application: [webpack-rails-demo](https://github.com/mipearson/webpack-rails-demo)**
+
+### Installation
+
+  1. Add `webpack-rails` to your gemfile
+  1. Run `bundle install` to install the gem
+  1. Run `bundle exec rails generate webpack_rails:install` to copy across example files
+  1. Run `foreman start` to start `webpack-dev-server` and `rails server` at the same time
+  1. Add the webpack entry point to your layout (see next section)
+  1. Edit `webpack/application.js` and write some code
+
+
+### Adding the entry point to your Rails application
+
+To add your webpacked javascript in to your app, add the following to the `<head>` section of your to your `layout.html.erb`:
+
+```erb
+<%= javascript_include_tag *webpack_asset_paths("application") %>
+```
+
+Take note of the splat (`*`): `webpack_asset_paths` returns an array, as one entry point can map to multiple paths, especially if hot reloading is enabled in Webpack.
+
+### How it works
 
 Have a look at the files in the `examples` directory. Of note:
 
   * We use [foreman](https://github.com/ddollar/foreman) and a `Procfile` to run our rails server & the webpack dev server in development at the same time
   * The webpack and gem configuration must be in sync - look at our railtie for configuration options
   * We require that **stats-webpack-plugin** is loaded to automatically generate a production manifest & resolve paths during development
-
-To access webpacked assets from your views:
-
-```erb
-<%= javascript_include_tag *webpack_asset_paths("entry_point_name") %>
-```
-
-Take note of the splat (`*`): `webpack_asset_paths` returns an array, as one entry point can map to multiple paths, especially if hot reloading is enabled in Webpack.
 
 ### Configuration Defaults
 
@@ -53,9 +67,7 @@ If you're using `[chunkhash]` in your build asset filenames (which you should be
 
 ## TODO
 
-* travisci & codeclimate & gem badges
 * Drive config via JSON, have webpack.config.js read same JSON?
-* Generators for webpack config, Gemfile, Procfile, package.json
 * Custom webpack-dev-server that exposes errors, stats, etc
 * [react-rails](https://github.com/reactjs/react-rails) fork for use with this workflow
 * Integration tests

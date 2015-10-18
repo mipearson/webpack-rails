@@ -14,8 +14,7 @@ var production = process.env.TARGET === 'production';
 var config = {
   entry: {
     // Sources are expected to live in $app_root/webpack
-    'entry_a': './webpack/entry/entry_a.js',
-    'entry_b': './webpack/entry/entry_b.js'
+    'application': './webpack/application.js'
   },
 
   output: {
