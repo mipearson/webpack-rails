@@ -93,4 +93,5 @@ Metrics/PerceivedComplexity:
   Severity: refactor
 
 Metrics/AbcSize:
+  Max: 30
   Severity: refactor
