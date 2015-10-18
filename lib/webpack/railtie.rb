@@ -1,7 +1,6 @@
 require 'rails'
 require 'rails/railtie'
 require 'webpack/rails/helper'
-require 'generators/webpack-rails/install_generator'
 
 module Webpack
   # :nodoc:
