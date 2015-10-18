@@ -1,4 +1,5 @@
 module WebpackRails
+  # :nodoc:
   class InstallGenerator < ::Rails::Generators::Base
     source_root File.expand_path("../../../../example", __FILE__)
 
