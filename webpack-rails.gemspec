@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.description = "Production-tested, JavaScript-first tooling to use webpack within your Rails application"
   s.license     = "MIT"
 
-  s.files = Dir["{app,config,db,lib,examples}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
+  s.files = Dir["{app,config,db,lib,example}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "rails", ">= 3.2.0"
