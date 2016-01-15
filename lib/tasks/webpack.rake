@@ -14,7 +14,6 @@ namespace :webpack do
     end
 
     result =  `#{webpack_bin} --bail --config #{config_file} 2>&1`
-    puts result
     raise result unless $? == 0
   end
 end
