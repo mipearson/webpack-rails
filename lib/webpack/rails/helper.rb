@@ -16,7 +16,7 @@ module Webpack
         return "" unless source.present?
 
         paths = Webpack::Rails::Manifest.asset_paths(source)
-        host = ::Rails.configuration.webpack.dev_server.host
+        host = request.host
         port = ::Rails.configuration.webpack.dev_server.port
 
         if ::Rails.configuration.webpack.dev_server.enabled
