@@ -20,7 +20,7 @@ describe 'webpack_asset_paths' do
     ::Rails.configuration.webpack.dev_server.port = 4000
 
     expect(webpack_asset_paths source).to eq([
-      "http://localhost:4000/a/a.js", "http://localhost:4000/b/b.js"
+      "//localhost:4000/a/a.js", "//localhost:4000/b/b.js"
     ])
   end
 
@@ -30,7 +30,7 @@ describe 'webpack_asset_paths' do
     ::Rails.configuration.webpack.dev_server.host = 'webpack.host'
 
     expect(webpack_asset_paths source).to eq([
-      "http://webpack.host:4000/a/a.js", "http://webpack.host:4000/b/b.js"
+      "//webpack.host:4000/a/a.js", "//webpack.host:4000/b/b.js"
     ])
   end
 end
