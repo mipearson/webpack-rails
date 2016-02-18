@@ -21,7 +21,7 @@ module Webpack
 
         if ::Rails.configuration.webpack.dev_server.enabled
           paths.map! do |p|
-            "http://#{host}:#{port}#{p}"
+            "//#{host}:#{port}#{p}"
           end
         end
 
