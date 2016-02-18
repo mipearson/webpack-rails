@@ -18,7 +18,7 @@ module Webpack
     config.webpack.dev_server = ActiveSupport::OrderedOptions.new
     config.webpack.dev_server.host = 'localhost'
     config.webpack.dev_server.port = 3808
-    config.webpack.dev_server.https = false
+    config.webpack.dev_server.https = false # note - this will use OpenSSL::SSL::VERIFY_NONE
     config.webpack.dev_server.binary = 'node_modules/.bin/webpack-dev-server'
     config.webpack.dev_server.enabled = !::Rails.env.production?
 

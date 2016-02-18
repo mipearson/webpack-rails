@@ -50,7 +50,7 @@ Have a look at the files in the `examples` directory. Of note:
 
   * Webpack configuration lives in `config/webpack.config.js`
   * Webpack & Webpack Dev Server binaries are in `node_modules/.bin/`
-  * Webpack Dev Server will run on port 3808 on localhost
+  * Webpack Dev Server will run on port 3808 on localhost via HTTP
   * Webpack Dev Server is enabled in development & test, but not in production
   * Webpacked assets will be compiled to `public/webpack`
   * The manifest file is named `manifest.json`
