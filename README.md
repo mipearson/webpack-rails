@@ -38,6 +38,14 @@ To add your webpacked javascript in to your app, add the following to the `<head
 
 Take note of the splat (`*`): `webpack_asset_paths` returns an array, as one entry point can map to multiple paths, especially if hot reloading is enabled in Webpack.
 
+#### Use with webpack-dev-server live reload
+
+If you're using the webpack dev server's live reload feature (not the React hot reloader), you'll also need to include the following in your layout template:
+
+``` html
+<script src="http://localhost:3808/webpack-dev-server.js"></script>
+```
+
 ### How it works
 
 Have a look at the files in the `examples` directory. Of note:
