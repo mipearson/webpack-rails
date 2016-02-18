@@ -57,7 +57,15 @@ Have a look at the files in the `examples` directory. Of note:
 
 ### Working with browser tests
 
-In development, we make sure that the `webpack-dev-server` is running when browser tests are running. In CI, we manually run `webpack` to compile the assets to public and set `config.webpack.dev_server.enabled` to false.
+In development, we make sure that the `webpack-dev-server` is running when browser tests are running.
+
+#### Continuous Integration
+
+In CI, we manually run `webpack` to compile the assets to public and set `config.webpack.dev_server.enabled` to `false` in our `config/environments/test.rb`:
+
+``` ruby
+  config.webpack.dev_server.enabled = !ENV['CI']
+```
 
 ### Production Deployment
 
