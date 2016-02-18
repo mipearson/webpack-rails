@@ -5,12 +5,13 @@ module WebpackRails
 
     desc "Install everything you need for a basic webpack-rails integration"
 
-    def use_react
-      @using_react if yes?("Will you be using react?")
-    end
-
     def add_foreman_to_gemfile
       gem 'foreman'
+    end
+
+    def add_react_rails_to_gemfile
+      return unless @using_react
+      gem 'react-rails'
     end
 
     def copy_procfile
@@ -18,13 +19,14 @@ module WebpackRails
     end
 
     def copy_package_json
-      src = @using_react ? "package-react.json" : "package.json"
-      copy_file src, "package.json"
+      if @using_react
+        copy_file "package.json", "package.json"
+      else
+        copy_file "package-react.json", "package.json"
+      end
     end
 
     def copy_webpack_conf
-      src = @using_react ? "webpack-react.config.js" : "webpack.config.js"
-
       copy_file "webpack.config.js", "config/webpack.config.js"
     end
 
@@ -39,7 +41,7 @@ module WebpackRails
         console.log("Hello world!");
       EOF
       if @using_react
-        content += "require('./react_ujs');\n"
+        content += "require('./vendor/react_ujs');\n"
       end
 
       create_file "webpack/application.js", { content }
@@ -47,7 +49,8 @@ module WebpackRails
 
     def copy_react_ujs
       return unless @using_react
-      copy_file "react_ujs.js", "webpack/react_ujs.js"
+      empty_directory "webpack/vendor"
+      copy_file "react_ujs.js", "webpack/vendor/react_ujs.js"
     end
 
     def create_webpack_components_js
@@ -58,6 +61,7 @@ module WebpackRails
 
         require('expose?React!react');
         require('expose?ReactDOMServer!react-dom/server');
+
         // Expose each component here
         EOF
       end
