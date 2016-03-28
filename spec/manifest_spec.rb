@@ -29,7 +29,7 @@ describe "Webpack::Rails::Manifest" do
 
   before do
     # Test that config variables work while we're here
-		::Rails.configuration.webpack.dev_server.host = "localhost"
+    ::Rails.configuration.webpack.dev_server.host = "localhost"
     ::Rails.configuration.webpack.dev_server.port = 2000
     ::Rails.configuration.webpack.manifest_filename = "my_manifest.json"
     ::Rails.configuration.webpack.public_path = "public_path"
