@@ -24,10 +24,11 @@ describe 'webpack_asset_paths' do
 
   it "should have the user talk to the dev server if it's enabled for each path returned from the manifest defaulting to localhost" do
     ::Rails.configuration.webpack.dev_server.enabled = true
+    ::Rails.configuration.webpack.dev_server.host = 'webpack.host'
     ::Rails.configuration.webpack.dev_server.port = 4000
 
     expect(webpack_asset_paths source).to eq([
-      "//localhost:4000/a/a.js", "//localhost:4000/b/b.css"
+      "//webpack.host:4000/a/a.js", "//webpack.host:4000/b/b.css"
     ])
   end
 

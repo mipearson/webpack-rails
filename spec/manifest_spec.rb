@@ -29,7 +29,10 @@ describe "Webpack::Rails::Manifest" do
 
   before do
     # Test that config variables work while we're here
+    ::Rails.configuration.webpack.dev_server.host = 'client-host'
     ::Rails.configuration.webpack.dev_server.port = 2000
+    ::Rails.configuration.webpack.dev_server.server_host = 'server-host'
+    ::Rails.configuration.webpack.dev_server.server_port = 4000
     ::Rails.configuration.webpack.manifest_filename = "my_manifest.json"
     ::Rails.configuration.webpack.public_path = "public_path"
     ::Rails.configuration.webpack.output_dir = "manifest_output"
@@ -39,7 +42,7 @@ describe "Webpack::Rails::Manifest" do
     before do
       ::Rails.configuration.webpack.dev_server.enabled = true
 
-      stub_request(:get, "http://localhost:2000/public_path/my_manifest.json").to_return(body: manifest, status: 200)
+      stub_request(:get, "http://server-host:4000/public_path/my_manifest.json").to_return(body: manifest, status: 200)
     end
 
     describe :asset_paths do
@@ -47,7 +50,7 @@ describe "Webpack::Rails::Manifest" do
 
       it "should error if we can't find the manifest" do
         ::Rails.configuration.webpack.manifest_filename = "broken.json"
-        stub_request(:get, "http://localhost:2000/public_path/broken.json").to_raise(SocketError)
+        stub_request(:get, "http://server-host:4000/public_path/broken.json").to_raise(SocketError)
 
         expect { Webpack::Rails::Manifest.asset_paths("entry1") }.to raise_error(Webpack::Rails::Manifest::ManifestLoadError)
       end
