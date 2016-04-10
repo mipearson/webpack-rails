@@ -54,7 +54,7 @@ module Webpack
 
         def load_dev_server_manifest
           http = Net::HTTP.new(
-            ::Rails.configuration.webpack.dev_server.host,
+            ::Rails.configuration.webpack.dev_server.private_host || ::Rails.configuration.webpack.dev_server.host,
             ::Rails.configuration.webpack.dev_server.port)
           http.use_ssl = ::Rails.configuration.webpack.dev_server.https
           http.verify_mode = OpenSSL::SSL::VERIFY_NONE
