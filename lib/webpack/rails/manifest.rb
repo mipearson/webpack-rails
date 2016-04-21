@@ -31,6 +31,14 @@ module Webpack
           end
         end
 
+        # Returns minified_file => map_file values as a hash
+        def source_maps
+          paths = manifest["assetsByChunkName"]
+          paths.each_with_object({}) do |(_name, files), obj|
+            obj[files[0]] = files[1]
+          end
+        end
+
         private
 
         def manifest
