@@ -20,11 +20,12 @@ module Webpack
         # :nodoc:
         def asset_paths(source)
           paths = manifest["assetsByChunkName"][source]
+          public_path = manifest["publicPath"]
           if paths
             # Can be either a string or an array of strings.
             # Do not include source maps as they are not javascript
             [paths].flatten.reject { |p| p =~ /.*\.map$/ }.map do |p|
-              "/#{::Rails.configuration.webpack.public_path}/#{p}"
+              "#{public_path}/#{p}"
             end
           else
             raise EntryPointMissingError, "Can't find entry point '#{source}' in webpack manifest"
