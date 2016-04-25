@@ -142,6 +142,3 @@ DEPENDENCIES
   rubocop
   webmock
   webpack-rails!
-
-BUNDLED WITH
-   1.10.6

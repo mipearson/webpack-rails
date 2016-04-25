@@ -13,10 +13,10 @@ module Webpack
       # Will raise an error if our manifest can't be found or the entry point does
       # not exist.
       def webpack_asset_paths(source)
-        return "" unless source.present?
+        return '' unless source.present?
 
         paths = Webpack::Rails::Manifest.asset_paths(source)
-        host = ::Rails.configuration.webpack.dev_server.host
+        host = request.try(:host) || 'localhost'
         port = ::Rails.configuration.webpack.dev_server.port
 
         if ::Rails.configuration.webpack.dev_server.enabled
