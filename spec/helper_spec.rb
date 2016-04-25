@@ -3,6 +3,7 @@ require 'spec_helper'
 describe 'webpack_asset_paths' do
   let(:source) { 'entry_point' }
   let(:asset_paths) { %w(/a/a.js /b/b.js) }
+  let(:request) { double }
 
   include Webpack::Rails::Helper
 
@@ -10,27 +11,37 @@ describe 'webpack_asset_paths' do
     expect(Webpack::Rails::Manifest).to receive(:asset_paths).with(source).and_return(asset_paths)
   end
 
-  it "should return paths straight from te manifest if the dev server is disabled" do
-    ::Rails.configuration.webpack.dev_server.enabled = false
-    expect(webpack_asset_paths source).to eq(asset_paths)
+  context 'with the dev server disabled' do
+    before { ::Rails.configuration.webpack.dev_server.enabled = false }
+
+    it 'should return paths straight from te manifest if the dev server is disabled' do
+      expect(webpack_asset_paths source).to eq(asset_paths)
+    end
   end
 
-  it "should have the user talk to the dev server if it's enabled for each path returned from the manifest defaulting to localhost" do
-    ::Rails.configuration.webpack.dev_server.enabled = true
-    ::Rails.configuration.webpack.dev_server.port = 4000
+  context 'with the dev server enabled' do
+    before { ::Rails.configuration.webpack.dev_server.enabled = true }
 
-    expect(webpack_asset_paths source).to eq([
-      "//localhost:4000/a/a.js", "//localhost:4000/b/b.js"
-    ])
-  end
+    it 'sets the manifest path the localhost by default' do
+      ::Rails.configuration.webpack.dev_server.enabled = true
+      ::Rails.configuration.webpack.dev_server.port = 4000
 
-  it "should have the user talk to the specified dev server if it's enabled for each path returned from the manifest" do
-    ::Rails.configuration.webpack.dev_server.enabled = true
-    ::Rails.configuration.webpack.dev_server.port = 4000
-    ::Rails.configuration.webpack.dev_server.host = 'webpack.host'
+      expect(webpack_asset_paths source).to eq([
+        '//localhost:4000/a/a.js', '//localhost:4000/b/b.js'
+      ])
+    end
 
-    expect(webpack_asset_paths source).to eq([
-      "//webpack.host:4000/a/a.js", "//webpack.host:4000/b/b.js"
-    ])
+    context 'with a specific server in the request' do
+      let(:request) { double(host: 'webpack.host') }
+
+      it 'sets the manifest path to the dev server host from the request' do
+        ::Rails.configuration.webpack.dev_server.port = 4000
+        ::Rails.configuration.webpack.dev_server.host = 'webpack.host'
+
+        expect(webpack_asset_paths source).to eq([
+          '//webpack.host:4000/a/a.js', '//webpack.host:4000/b/b.js'
+        ])
+      end
+    end
   end
 end
