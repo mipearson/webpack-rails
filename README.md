@@ -70,6 +70,16 @@ Have a look at the files in the `examples` directory. Of note:
   * Webpacked assets will be compiled to `public/webpack`
   * The manifest file is named `manifest.json`
 
+#### Dynamic host
+
+To have the host evaluated at request-time, set `host` to a proc:
+
+```ruby
+config.webpack.dev_server.host = proc { request.host }
+```
+
+This is useful when accessing your Rails app over the network (remember to bind both your Rails app and your WebPack server to `0.0.0.0`).
+
 ### Working with browser tests
 
 In development, we make sure that the `webpack-dev-server` is running when browser tests are running.
@@ -79,7 +89,7 @@ In development, we make sure that the `webpack-dev-server` is running when brows
 In CI, we manually run `webpack` to compile the assets to public and set `config.webpack.dev_server.enabled` to `false` in our `config/environments/test.rb`:
 
 ``` ruby
-  config.webpack.dev_server.enabled = !ENV['CI']
+config.webpack.dev_server.enabled = !ENV['CI']
 ```
 
 ### Production Deployment
