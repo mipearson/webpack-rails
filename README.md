@@ -82,8 +82,5 @@ Please ensure that pull requests pass both rubocop & rspec. New functionality sh
 
 ## Acknowledgements
 
-* Len Garvey for his [webpack-rails](https://github.com/lengarvey/webpack-rails) gem which inspired this implementation
-* Sebastian Porto for [Rails with Webpack](https://reinteractive.net/posts/213-rails-with-webpack-why-and-how)
-* Clark Dave for [How to use Webpack with Rails](http://clarkdave.net/2015/01/how-to-use-webpack-with-rails/)
 * mipearson for his [webpack-rails](https://github.com/mipearson/webpack-rails) gem which inspired this implementation
-* David Jungst for his idea and implementation to expand on what mipearson did
+* David Jungst for his fork of [webpack-rails](https://github.com/wdjungst/webpack-rails-react) and idea / implementation to add React / Babel / ES6 boilerplate.
