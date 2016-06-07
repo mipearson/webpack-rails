@@ -22,8 +22,8 @@ module WebpackRails
     end
 
     def create_webpack_application_js
-      empty_directory "client"
-      create_file "client/application.js" do
+      empty_directory "webpack"
+      create_file "webpack/application.js" do
         <<-EOF.strip_heredoc
         import React from 'react';
         import ReactDOM from 'react-dom';
@@ -36,7 +36,7 @@ module WebpackRails
         EOF
       end
 
-      create_file "client/App.js" do
+      create_file "webpack/App.js" do
         <<-EOF.strip_heredoc
           import React from 'react';
 
@@ -81,7 +81,7 @@ module WebpackRails
 
           1. Add the 'application' entry point in to your layout, and
             e.g. <%= javascript_include_tag *webpack_asset_paths('application') %>
-          2. Add an element with an id of 'app' do your layout
+          2. Add an element with an id of 'app' to your layout
           3. Enable hot module replacement by adding <script src="http://localhost:3808/webpack-dev-server.js"></script> to your layout
           4. Run 'foreman start' to run the webpack-dev-server and rails server
 
