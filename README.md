@@ -69,9 +69,8 @@ If you're using `[chunkhash]` in your build asset filenames (which you should be
 
 ## TODO
 
-* Drive config via JSON, have webpack.config.js read same JSON?
-* Custom webpack-dev-server that exposes errors, stats, etc
-* [react-rails](https://github.com/reactjs/react-rails) fork for use with this workflow
+* Add flag for Redux and React Router
+* Add eslint to client
 * Integration tests
 
 ## Contributing
