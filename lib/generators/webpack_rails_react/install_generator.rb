@@ -4,6 +4,8 @@ module WebpackRailsReact
     source_root File.expand_path("../../../../example", __FILE__)
 
     desc "Install everything you need for a basic webpack-rails integration"
+    class_option :router, type: :boolean, default: false, description: 'Add React Router'
+    class_option :redux, type: :boolean, default: false, description: 'Add Redux'
 
     def add_foreman_to_gemfile
       gem 'foreman'
@@ -15,6 +17,32 @@ module WebpackRailsReact
 
     def copy_package_json
       copy_file "package.json", "package.json"
+
+      if options[:router]
+        insert_into_file './package.json', after: /dependencies\": {\n/ do
+          <<-'RUBY'
+    "react-router": "^2.4.1",
+          RUBY
+        end
+      end
+
+      if options[:redux]
+        insert_into_file './package.json', after: /dependencies\": {\n/ do
+          <<-'RUBY'
+    "react-redux": "^4.4.5",
+    "redux": "^3.5.2",
+    "redux-thunk": "^2.1.0",
+          RUBY
+        end
+      end
+
+      if options[:router] && options[:redux]
+          insert_into_file './package.json', after: /dependencies\": {\n/ do
+          <<-'RUBY'
+    "react-router-redux": "^4.0.5",
+          RUBY
+         end
+      end
     end
 
     def copy_webpack_conf
@@ -23,20 +51,26 @@ module WebpackRailsReact
 
     def create_webpack_application_js
       empty_directory "webpack"
-      create_file "webpack/application.js" do
-        <<-EOF.strip_heredoc
-        import React from 'react';
-        import ReactDOM from 'react-dom';
-        import App from './App';
 
-        ReactDOM.render(
-          <App />,
-          document.getElementById('app')
-        )
-        EOF
+      if options[:router] && options[:redux]
+        copy_file "boilerplate/router_redux/application.js", "webpack/application.js"
+        copy_file "boilerplate/routes.js", "webpack/routes.js"
+        copy_file "boilerplate/router_redux/store.js", "webpack/store.js"
+        copy_file "boilerplate/router_redux/reducers.js", "webpack/reducers/index.js"
+        create_file "webpack/actions.js"
+      elsif options[:router]
+        copy_file "boilerplate/router/application.js", "webpack/application.js"
+        copy_file "boilerplate/routes.js", "webpack/routes.js"
+      elsif options[:redux]
+        copy_file "boilerplate/redux/application.js", "webpack/application.js"
+        copy_file "boilerplate/redux/store.js", "webpack/store.js"
+        copy_file "boilerplate/redux/reducers.js", "webpack/reducers/index.js"
+        create_file "webpack/actions.js"
+      else
+        copy_file "boilerplate/application.js", "webpack/application.js"
       end
 
-      create_file "webpack/App.js" do
+      create_file "webpack/containers/App.js" do
         <<-EOF.strip_heredoc
           import React from 'react';
 
@@ -52,6 +86,17 @@ module WebpackRailsReact
 
           export default App;
         EOF
+      end
+
+      insert_into_file 'app/views/layouts/application.html.erb', before: /<\/body>/ do
+          <<-'RUBY'
+<%= javascript_include_tag *webpack_asset_paths('application') %>
+          RUBY
+      end
+      insert_into_file 'app/views/layouts/application.html.erb', before: /<\/head>/ do
+          <<-'RUBY'
+    <script src="http://localhost:3808/webpack-dev-server.js"></script>
+          RUBY
       end
     end
 
@@ -76,32 +121,12 @@ module WebpackRailsReact
     def whats_next
       puts <<-EOF.strip_heredoc
 
-        We've set up the basics of webpack-rails for you, but you'll still
+        We've set up the basics of webpack-rails-react for you, but you'll still
         need to:
 
-          1. Add the 'application' entry point in to your layout, and
-            e.g. <%= javascript_include_tag *webpack_asset_paths('application') %>
-          2. Add an element with an id of 'app' to your layout
-          3. Enable hot module replacement by adding <script src="http://localhost:3808/webpack-dev-server.js"></script> to your layout
-          4. Run 'foreman start' to run the webpack-dev-server and rails server
-
-          Example app/views/layouts/application.html.erb
-          <!DOCTYPE html>
-          <html>
-            <head>
-              <title>WebpackDemo</title>
-              <%= stylesheet_link_tag    'application', media: 'all' %>
-              <%= javascript_include_tag 'application' %>
-              <script src="http://localhost:3808/webpack-dev-server.js"></script>
-              <%= csrf_meta_tags %>
-            </head>
-            <body>
-
-              <%= yield %>
-              <%= javascript_include_tag *webpack_asset_paths('application') %>
-            </body>
-          </html>
-
+          1. Add an element with an id of 'app' to your layout
+          2. To disable hot module replacement remove <script src="http://localhost:3808/webpack-dev-server.js"></script> from layout
+          3. Run 'foreman start' to run the webpack-dev-server and rails server
 
         See the README.md for this gem at
         https://github.com/wdjungst/webpack-rails-react/blob/master/README.md

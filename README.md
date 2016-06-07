@@ -19,12 +19,12 @@ This gem has been tested against Rails 4.2 and Ruby 2.2. Earlier versions of Rai
   1. Run `bundle exec rails generate webpack_rails_react:install` to copy across example files
   1. Run `foreman start` to start `webpack-dev-server` and `rails server` at the same time
   1. Add the webpack entry point to your layout (see next section)
-  1. Edit `client/application.js` and write some code
+  1. Edit `webpack/application.js` and write some code
 
 
 ### Adding the entry point to your Rails application
 
-To add your webpacked javascript in to your app, add the following to the `<head>` section of your to your `layout.html.erb`:
+To add your webpacked javascript in to your app, add the following to the `<body>` section of any layout by default it has been added to `layout.html.erb`:
 
 ```erb
 <%= javascript_include_tag *webpack_asset_paths("application") %>
@@ -39,6 +39,8 @@ If you're using the webpack dev server's live reload feature (not the React hot 
 ``` html
 <script src="http://localhost:3808/webpack-dev-server.js"></script>
 ```
+
+This has been added to layouts/index.html.erb by default.
 
 ### Configuration Defaults
 
@@ -69,7 +71,6 @@ If you're using `[chunkhash]` in your build asset filenames (which you should be
 
 ## TODO
 
-* Add flag for Redux and React Router
 * Add eslint to client
 * Integration tests
 
