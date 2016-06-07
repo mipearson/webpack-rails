@@ -7,7 +7,7 @@ require "webpack/rails/react/version"
 Gem::Specification.new do |s|
   s.name        = "webpack-rails-react"
   s.version     = Webpack::Rails::React::VERSION
-  s.authors     = ["Dave Jugnst", "Jake Sorce"]
+  s.authors     = ["Dave Jungst", "Jake Sorce"]
   s.email       = ["djungst@gmail.com", "jakesorce@gmail.com"]
   s.homepage    = "https://github.com/jakesorce/webpack-rails-react"
   s.summary     = "Webpack / Rails / React"
