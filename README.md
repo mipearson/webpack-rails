@@ -1,28 +1,22 @@
-[![Build Status](https://travis-ci.org/mipearson/webpack-rails.svg?branch=master)](https://travis-ci.org/mipearson/webpack-rails) [![Gem Version](https://badge.fury.io/rb/webpack-rails.svg)](http://badge.fury.io/rb/webpack-rails)
+# webpack-rails-react
 
-# webpack-rails
+**webpack-rails-react** gives you tools to integrate Webpack and React in to an existing Ruby on Rails application.
 
-**webpack-rails** gives you tools to integrate Webpack in to an existing Ruby on Rails application.
-
-It will happily co-exist with sprockets but does not use it for production fingerprinting or asset serving. **webpack-rails** is designed with the assumption that if you're using Webpack you treat Javascript as a first-class citizen. This means that you control the webpack config, package.json, and use npm to install Webpack & its plugins.
+It will happily co-exist with sprockets but does not use it for production fingerprinting or asset serving. **webpack-rails-react** is designed with the assumption that if you're using Webpack you treat Javascript as a first-class citizen. This means that you control the webpack config, package.json, and use npm to install Webpack & its plugins.
 
 In development mode [webpack-dev-server](http://webpack.github.io/docs/webpack-dev-server.html) is used to serve webpacked entry points and offer hot module reloading. In production entry points are built in to `public/webpack`. **webpack-rails** uses [stats-webpack-plugin](https://www.npmjs.com/package/stats-webpack-plugin) to translate entry points in to asset paths.
 
-It was designed for use at [Marketplacer](http://www.marketplacer.com) to assist us in migrating our Javascript (and possibly our SCSS) off of Sprockets. It first saw production use in June 2015.
-
-Our examples show **webpack-rails** co-existing with sprockets (as that's how environment works), but sprockets is not used or required for development or production use of this gem.
+It was forked from the [Marketplacer](http://www.marketplacer.com) repo: (https://github.com/mipearson/webpack-rails) and support for React / Babel / ES6 was added.
 
 This gem has been tested against Rails 4.2 and Ruby 2.2. Earlier versions of Rails (>= 3.2) and Ruby (>= 1.9) may work, but we haven't tested them.
 
-## Using webpack-rails
-
-**We have a demo application: [webpack-rails-demo](https://github.com/mipearson/webpack-rails-demo)**
+## Using webpack-rails-react
 
 ### Installation
 
-  1. Add `webpack-rails` to your gemfile
+  1. Add `webpack-rails-react` to your gemfile
   1. Run `bundle install` to install the gem
-  1. Run `bundle exec rails generate webpack_rails:install` to copy across example files
+  1. Run `bundle exec rails generate webpack_rails_react:install` to copy across example files
   1. Run `foreman start` to start `webpack-dev-server` and `rails server` at the same time
   1. Add the webpack entry point to your layout (see next section)
   1. Edit `client/application.js` and write some code
@@ -45,14 +39,6 @@ If you're using the webpack dev server's live reload feature (not the React hot 
 ``` html
 <script src="http://localhost:3808/webpack-dev-server.js"></script>
 ```
-
-### How it works
-
-Have a look at the files in the `examples` directory. Of note:
-
-  * We use [foreman](https://github.com/ddollar/foreman) and a `Procfile` to run our rails server & the webpack dev server in development at the same time
-  * The webpack and gem configuration must be in sync - look at our railtie for configuration options
-  * We require that **stats-webpack-plugin** is loaded to automatically generate a production manifest & resolve paths during development
 
 ### Configuration Defaults
 
@@ -99,3 +85,5 @@ Please ensure that pull requests pass both rubocop & rspec. New functionality sh
 * Len Garvey for his [webpack-rails](https://github.com/lengarvey/webpack-rails) gem which inspired this implementation
 * Sebastian Porto for [Rails with Webpack](https://reinteractive.net/posts/213-rails-with-webpack-why-and-how)
 * Clark Dave for [How to use Webpack with Rails](http://clarkdave.net/2015/01/how-to-use-webpack-with-rails/)
+* mipearson for his [webpack-rails](https://github.com/mipearson/webpack-rails) gem which inspired this implementation
+* David Jungst for his idea and implementation to expand on what mipearson did
