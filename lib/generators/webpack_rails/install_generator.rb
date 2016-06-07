@@ -22,10 +22,35 @@ module WebpackRails
     end
 
     def create_webpack_application_js
-      empty_directory "webpack"
-      create_file "webpack/application.js" do
+      empty_directory "client"
+      create_file "client/application.js" do
         <<-EOF.strip_heredoc
-        console.log("Hello world!");
+        import React from 'react';
+        import ReactDOM from 'react-dom';
+        import App from './App';
+
+        ReactDOM.render(
+          <App />,
+          Document.findElementById('app')
+        )
+        EOF
+      end
+
+      create_file "client/App.js" do
+        <<-EOF.strip_heredoc
+          import React from 'react';
+
+          class App extends React.Component {
+            render() {
+              return(
+                <div>
+                  Hello World
+                </div>
+              )
+            }
+          }
+
+          export default App;
         EOF
       end
     end
@@ -55,13 +80,34 @@ module WebpackRails
         need to:
 
           1. Add the 'application' entry point in to your layout, and
-          2. Run 'foreman start' to run the webpack-dev-server and rails server
+            e.g. <%= javascript_include_tag *webpack_asset_paths('application') %>
+          2. Add an element with an id of 'app' do your layout
+          3. Enable hot module replacement by adding <script src="http://localhost:3808/webpack-dev-server.js"></script> to your layout
+          4. Run 'foreman start' to run the webpack-dev-server and rails server
+
+          Example app/views/layouts/application.html.erb
+          <!DOCTYPE html>
+          <html>
+            <head>
+              <title>WebpackDemo</title>
+              <%= stylesheet_link_tag    'application', media: 'all' %>
+              <%= javascript_include_tag 'application' %>
+              <script src="http://localhost:3808/webpack-dev-server.js"></script>
+              <%= csrf_meta_tags %>
+            </head>
+            <body>
+
+              <%= yield %>
+              <%= javascript_include_tag *webpack_asset_paths('application') %>
+            </body>
+          </html>
+
 
         See the README.md for this gem at
-        https://github.com/mipearson/webpack-rails/blob/master/README.md
+        https://github.com/wdjungst/webpack-rails-react/blob/master/README.md
         for more info.
 
-        Thanks for using webpack-rails!
+        Thanks for using webpack-rails-react!
 
       EOF
     end

@@ -14,7 +14,7 @@ var production = process.env.TARGET === 'production';
 var config = {
   entry: {
     // Sources are expected to live in $app_root/webpack
-    'application': './webpack/application.js'
+    'application': './client/application.js'
   },
 
   output: {
@@ -23,13 +23,28 @@ var config = {
 
     // must match config.webpack.output_dir
     path: path.join(__dirname, '..', 'public', 'webpack'),
-    publicPath: '/webpack/',
+    publicPath: '/client/',
 
     filename: production ? '[name]-[chunkhash].js' : '[name].js'
   },
 
   resolve: {
-    root: path.join(__dirname, '..', 'webpack')
+    root: path.join(__dirname, '..', 'webpack'),
+    extensions: ["", ".js", ".jsx", ".es6"]
+  },
+
+  module: {
+    loaders: [
+      {
+        test: /\.jsx?$/,         // Match both .js and .jsx files
+        exclude: /node_modules/,
+        loader: "babel",
+        query:
+        {
+          presets:['es2015', 'react', 'stage-0']
+        }
+      }
+    ]
   },
 
   plugins: [
