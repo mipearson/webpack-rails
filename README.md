@@ -25,7 +25,7 @@ This gem has been tested against Rails 4.2 and Ruby 2.2. Earlier versions of Rai
   1. Run `bundle exec rails generate webpack_rails:install` to copy across example files
   1. Run `foreman start` to start `webpack-dev-server` and `rails server` at the same time
   1. Add the webpack entry point to your layout (see next section)
-  1. Edit `webpack/application.js` and write some code
+  1. Edit `client/application.js` and write some code
 
 
 ### Adding the entry point to your Rails application
