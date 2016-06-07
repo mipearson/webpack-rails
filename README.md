@@ -38,6 +38,13 @@ To add your webpacked javascript in to your app, add the following to the `<head
 
 Take note of the splat (`*`): `webpack_asset_paths` returns an array, as one entry point can map to multiple paths, especially if hot reloading is enabled in Webpack.
 
+If your webpack is configured to output both CSS and JS, you can use the `extension:` argument to filter which files are returned by the helper:
+
+```erb
+<%= javascript_include_tag *webpack_asset_paths('application', extension: 'js') %>
+<%= stylesheet_link_tag *webpack_asset_paths('application', extension: 'css') %>
+```
+
 #### Use with webpack-dev-server live reload
 
 If you're using the webpack dev server's live reload feature (not the React hot reloader), you'll also need to include the following in your layout template:
