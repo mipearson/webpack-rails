@@ -1,4 +1,4 @@
-module WebpackRails
+module WebpackRailsReact
   # :nodoc:
   class InstallGenerator < ::Rails::Generators::Base
     source_root File.expand_path("../../../../example", __FILE__)
@@ -31,7 +31,7 @@ module WebpackRails
 
         ReactDOM.render(
           <App />,
-          Document.findElementById('app')
+          document.getElementById('app')
         )
         EOF
       end

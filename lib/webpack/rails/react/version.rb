@@ -1,6 +1,8 @@
 module Webpack
   # :nodoc:
   module Rails
-    VERSION = "0.9.9"
+    module React
+      VERSION = "0.1.0"
+    end
   end
 end

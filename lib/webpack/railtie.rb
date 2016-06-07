@@ -1,13 +1,13 @@
 require 'rails'
 require 'rails/railtie'
-require 'webpack/rails/helper'
+require 'webpack/rails/react/helper'
 
 module Webpack
   # :nodoc:
   class Railtie < ::Rails::Railtie
     config.after_initialize do
       ActiveSupport.on_load(:action_view) do
-        include Webpack::Rails::Helper
+        include Webpack::Rails::React::Helper
       end
     end
 
