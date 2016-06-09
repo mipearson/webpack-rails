@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.name        = "webpack-rails-react"
   s.version     = Webpack::Rails::React::VERSION
   s.authors     = ["Dave Jungst", "Jake Sorce"]
-  s.email       = ["djungst@gmail.com", "jakesorce@gmail.com"]
-  s.homepage    = "https://github.com/jakesorce/webpack-rails-react"
+  s.email       = ["dave@cottonwoodcoding.com", "jake@cottonwoodcoding.com"]
+  s.homepage    = "https://github.com/cottonwoodcoding/webpack-rails-react"
   s.summary     = "Webpack / Rails / React"
   s.description = "Production-tested, JavaScript-first tooling to use webpack within your Rails application"
   s.license     = "MIT"
