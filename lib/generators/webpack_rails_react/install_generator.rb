@@ -58,35 +58,23 @@ module WebpackRailsReact
         copy_file "boilerplate/router_redux/store.js", "webpack/store.js"
         copy_file "boilerplate/router_redux/reducers.js", "webpack/reducers/index.js"
         create_file "webpack/actions.js"
+        copy_file "boilerplate/router/App.js", "webpack/containers/App.js"
       elsif options[:router]
         copy_file "boilerplate/router/application.js", "webpack/application.js"
         copy_file "boilerplate/routes.js", "webpack/routes.js"
+        copy_file "boilerplate/router/App.js", "webpack/containers/App.js"
       elsif options[:redux]
         copy_file "boilerplate/redux/application.js", "webpack/application.js"
         copy_file "boilerplate/redux/store.js", "webpack/store.js"
         copy_file "boilerplate/redux/reducers.js", "webpack/reducers/index.js"
         create_file "webpack/actions.js"
+        copy_file "boilerplate/App.js", "webpack/containers/App.js"
       else
         copy_file "boilerplate/application.js", "webpack/application.js"
+        copy_file "boilerplate/App.js", "webpack/containers/App.js"
       end
 
-      create_file "webpack/containers/App.js" do
-        <<-EOF.strip_heredoc
-          import React from 'react';
-
-          class App extends React.Component {
-            render() {
-              return(
-                <div>
-                  Hello World
-                </div>
-              )
-            }
-          }
-
-          export default App;
-        EOF
-      end
+      empty_directory "webpack/components"
 
       insert_into_file 'app/views/layouts/application.html.erb', before: /<\/body>/ do
           <<-'RUBY'
