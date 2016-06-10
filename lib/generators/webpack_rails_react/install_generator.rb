@@ -65,10 +65,12 @@ module WebpackRailsReact
         copy_file "boilerplate/router_redux/reducers.js", "webpack/reducers/index.js"
         create_file "webpack/actions.js"
         copy_file "boilerplate/router/App.js", "webpack/containers/App.js"
+        copy_file "boilerplate/router/NoMatch.js", "webpack/components/NoMatch.js"
       elsif options[:router]
         copy_file "boilerplate/router/application.js", "webpack/application.js"
         copy_file "boilerplate/routes.js", "webpack/routes.js"
         copy_file "boilerplate/router/App.js", "webpack/containers/App.js"
+        copy_file "boilerplate/router/NoMatch.js", "webpack/components/NoMatch.js"
       elsif options[:redux]
         copy_file "boilerplate/redux/application.js", "webpack/application.js"
         copy_file "boilerplate/redux/store.js", "webpack/store.js"
@@ -119,6 +121,10 @@ module WebpackRailsReact
           1. Add an element with an id of 'app' to your layout
           2. To disable hot module replacement remove <script src="http://localhost:3808/webpack-dev-server.js"></script> from layout
           3. Run 'foreman start' to run the webpack-dev-server and rails server
+          4. If you are using react-router and want to sync server routes add:
+             get '*unmatched_route', to: <your client controller>#<default action>
+             This must be the very last route in your routes.rb file
+             e.g. get '*unmatched_route', to: 'home#index'
 
         See the README.md for this gem at
         https://github.com/cottonwoodcoding/webpack-rails-react/blob/master/README.md
