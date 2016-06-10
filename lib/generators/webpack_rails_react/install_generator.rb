@@ -12,7 +12,11 @@ module WebpackRailsReact
     end
 
     def copy_procfile
-      copy_file "Procfile", "Procfile"
+      if File.exists? "Procfile"
+        append_file "Procfile", "webpack: ./node_modules/.bin/webpack-dev-server --config config/webpack.config.js"
+      else
+        copy_file "Procfile", "Procfile"
+      end
     end
 
     def copy_package_json

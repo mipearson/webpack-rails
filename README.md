@@ -70,8 +70,10 @@ Add `rake webpack:compile` to your deployment. It serves a similar purpose as Sp
 If you're using `[chunkhash]` in your build asset filenames (which you should be, if you want to cache them in production), you'll need to persist built assets between deployments. Consider in-flight requests at the time of deployment: they'll receive paths based on the old `manifest.json`, not the new one.
 
 ## Example Apps
-[basic](https://github.com/wdjungst/webpack-rails-react-basic)
-[react-router](https://github.com/wdjungst/webpack-rails-react-router)
+* [basic](https://github.com/cottonwoodcoding/webpack-rails-react-basic)
+* [react-router](https://github.com/cottonwoodcoding/webpack-rails-react-router)
+* [redux](https://github.com/cottonwoodcoding/webpack-rails-react-redux)
+* [redux react-router](https://github.com/cottonwoodcoding/webpack-rails-react-redux-router)
 ## TODO
 
 * Add eslint to client
