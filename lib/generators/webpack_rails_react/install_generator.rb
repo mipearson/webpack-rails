@@ -51,6 +51,8 @@ module WebpackRailsReact
 
     def create_webpack_application_js
       empty_directory "webpack"
+      empty_directory "webpack/containers"
+      empty_directory "webpack/components"
 
       if options[:router] && options[:redux]
         copy_file "boilerplate/router_redux/application.js", "webpack/application.js"
@@ -73,8 +75,6 @@ module WebpackRailsReact
         copy_file "boilerplate/application.js", "webpack/application.js"
         copy_file "boilerplate/App.js", "webpack/containers/App.js"
       end
-
-      empty_directory "webpack/components"
 
       insert_into_file 'app/views/layouts/application.html.erb', before: /<\/body>/ do
           <<-'RUBY'
@@ -117,7 +117,7 @@ module WebpackRailsReact
           3. Run 'foreman start' to run the webpack-dev-server and rails server
 
         See the README.md for this gem at
-        https://github.com/wdjungst/webpack-rails-react/blob/master/README.md
+        https://github.com/cottonwoodcoding/webpack-rails-react/blob/master/README.md
         for more info.
 
         Thanks for using webpack-rails-react!
