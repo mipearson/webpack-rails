@@ -12,6 +12,13 @@ const enhancers = compose(
 
 const store = createStore(rootReducer, {}, enhancers)
 
+if(module.hot) {
+  module.hot.accept('./reducers/',() => {
+    const nextRootReducer = require('./reducers/index').default;
+    store.replaceReducer(nextRootReducer);
+  });
+}
+
 export const history = syncHistoryWithStore(browserHistory, store)
 
 export default store
