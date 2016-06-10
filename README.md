@@ -12,7 +12,7 @@ It was designed for use at [Marketplacer](http://www.marketplacer.com) to assist
 
 Our examples show **webpack-rails** co-existing with sprockets (as that's how environment works), but sprockets is not used or required for development or production use of this gem.
 
-This gem has been tested against Rails 4.2 and Ruby 2.2. Earlier versions of Rails (>= 3.2) and Ruby (>= 1.9) may work, but we haven't tested them.
+This gem has been tested against Rails 4.2 and Ruby 2.2. Earlier versions of Rails (>= 3.2) and Ruby (>= 2.0) may work, but we haven't tested them.
 
 ## Using webpack-rails
 
