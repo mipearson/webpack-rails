@@ -74,6 +74,7 @@ If you're using `[chunkhash]` in your build asset filenames (which you should be
 * [react-router](https://github.com/cottonwoodcoding/webpack-rails-react-router)
 * [redux](https://github.com/cottonwoodcoding/webpack-rails-react-redux)
 * [redux react-router](https://github.com/cottonwoodcoding/webpack-rails-react-redux-router)
+
 ## TODO
 
 * Add eslint to client
