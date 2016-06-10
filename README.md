@@ -71,6 +71,7 @@ If you're using `[chunkhash]` in your build asset filenames (which you should be
 
 ## Example Apps
 [basic](https://github.com/wdjungst/webpack-rails-react-basic)
+[react-router](https://github.com/wdjungst/webpack-rails-react-router)
 ## TODO
 
 * Add eslint to client
