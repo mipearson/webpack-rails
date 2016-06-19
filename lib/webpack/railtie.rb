@@ -20,7 +20,7 @@ module Webpack
     # Host & port to use when generating asset URLS in the manifest helpers in dev
     # server mode. Defaults to the requested host rather than localhost, so
     # that requests from remote hosts work.
-    config.webpack.dev_server.host = proc { request.host }
+    config.webpack.dev_server.host = proc { respond_to?(:request) ? request.host : 'localhost' }
     config.webpack.dev_server.port = 3808
 
     # The host and port to use when fetching the manifest
