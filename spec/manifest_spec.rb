@@ -31,8 +31,8 @@ describe "Webpack::Rails::Manifest" do
     # Test that config variables work while we're here
     ::Rails.configuration.webpack.dev_server.host = 'client-host'
     ::Rails.configuration.webpack.dev_server.port = 2000
-    ::Rails.configuration.webpack.dev_server.server_host = 'server-host'
-    ::Rails.configuration.webpack.dev_server.server_port = 4000
+    ::Rails.configuration.webpack.dev_server.manifest_host = 'server-host'
+    ::Rails.configuration.webpack.dev_server.manifest_port = 4000
     ::Rails.configuration.webpack.manifest_filename = "my_manifest.json"
     ::Rails.configuration.webpack.public_path = "public_path"
     ::Rails.configuration.webpack.output_dir = "manifest_output"
