@@ -86,6 +86,10 @@ In CI, we manually run `webpack` to compile the assets to public and set `config
 
 Add `rake webpack:compile` to your deployment. It serves a similar purpose as Sprockets' `assets:precompile` task. If you're using Webpack and Sprockets (as we are at Marketplacer) you'll need to run both tasks - but it doesn't matter which order they're run in.
 
+If you deploy to Heroku, you can add the special
+[webpack-rails-buildpack](https://github.com/febeling/webpack-rails-buildpack)
+in order to perform this rake task on each deployment.
+
 If you're using `[chunkhash]` in your build asset filenames (which you should be, if you want to cache them in production), you'll need to persist built assets between deployments. Consider in-flight requests at the time of deployment: they'll receive paths based on the old `manifest.json`, not the new one.
 
 ## TODO
