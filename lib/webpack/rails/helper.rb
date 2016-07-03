@@ -20,10 +20,11 @@ module Webpack
 
         host = ::Rails.configuration.webpack.dev_server.host
         port = ::Rails.configuration.webpack.dev_server.port
+        protocol = ::Rails.configuration.webpack.dev_server.https ? 'https' : 'http'
 
         if ::Rails.configuration.webpack.dev_server.enabled
           paths.map! do |p|
-            "//#{host}:#{port}#{p}"
+            "#{protocol}://#{host}:#{port}#{p}"
           end
         end
 
