@@ -12,7 +12,7 @@ It was designed for use at [Marketplacer](http://www.marketplacer.com) to assist
 
 Our examples show **webpack-rails** co-existing with sprockets (as that's how environment works), but sprockets is not used or required for development or production use of this gem.
 
-This gem has been tested against Rails 4.2 and Ruby 2.2. Earlier versions of Rails (>= 3.2) and Ruby (>= 1.9) may work, but we haven't tested them.
+This gem has been tested against Rails 4.2 and Ruby 2.2. Earlier versions of Rails (>= 3.2) and Ruby (>= 2.0) may work, but we haven't tested them.
 
 ## Using webpack-rails
 
@@ -38,6 +38,21 @@ To add your webpacked javascript in to your app, add the following to the `<head
 
 Take note of the splat (`*`): `webpack_asset_paths` returns an array, as one entry point can map to multiple paths, especially if hot reloading is enabled in Webpack.
 
+If your webpack is configured to output both CSS and JS, you can use the `extension:` argument to filter which files are returned by the helper:
+
+```erb
+<%= javascript_include_tag *webpack_asset_paths('application', extension: 'js') %>
+<%= stylesheet_link_tag *webpack_asset_paths('application', extension: 'css') %>
+```
+
+#### Use with webpack-dev-server live reload
+
+If you're using the webpack dev server's live reload feature (not the React hot reloader), you'll also need to include the following in your layout template:
+
+``` html
+<script src="http://localhost:3808/webpack-dev-server.js"></script>
+```
+
 ### How it works
 
 Have a look at the files in the `examples` directory. Of note:
@@ -50,14 +65,22 @@ Have a look at the files in the `examples` directory. Of note:
 
   * Webpack configuration lives in `config/webpack.config.js`
   * Webpack & Webpack Dev Server binaries are in `node_modules/.bin/`
-  * Webpack Dev Server will run on port 3808 on localhost
+  * Webpack Dev Server will run on port 3808 on localhost via HTTP
   * Webpack Dev Server is enabled in development & test, but not in production
   * Webpacked assets will be compiled to `public/webpack`
   * The manifest file is named `manifest.json`
 
 ### Working with browser tests
 
-In development, we make sure that the `webpack-dev-server` is running when browser tests are running. In CI, we manually run `webpack` to compile the assets to public and set `config.webpack.dev_server.enabled` to false.
+In development, we make sure that the `webpack-dev-server` is running when browser tests are running.
+
+#### Continuous Integration
+
+In CI, we manually run `webpack` to compile the assets to public and set `config.webpack.dev_server.enabled` to `false` in our `config/environments/test.rb`:
+
+``` ruby
+  config.webpack.dev_server.enabled = !ENV['CI']
+```
 
 ### Production Deployment
 
@@ -80,6 +103,6 @@ Please ensure that pull requests pass both rubocop & rspec. New functionality sh
 
 ## Acknowledgements
 
-* Len Garvey for his [webpack-rails](https://github.com/lgarvey/webpack-rails) gem which inspired this implementation
+* Len Garvey for his [webpack-rails](https://github.com/lengarvey/webpack-rails) gem which inspired this implementation
 * Sebastian Porto for [Rails with Webpack](https://reinteractive.net/posts/213-rails-with-webpack-why-and-how)
 * Clark Dave for [How to use Webpack with Rails](http://clarkdave.net/2015/01/how-to-use-webpack-with-rails/)
