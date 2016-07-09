@@ -16,7 +16,7 @@ module Webpack
         return "" unless source.present?
 
         paths = Webpack::Rails::Manifest.asset_paths(source)
-        paths = paths.select {|p| p.ends_with? ".#{extension}" } if extension
+        paths = paths.select { |p| p.ends_with? ".#{extension}" } if extension
 
         host = ::Rails.configuration.webpack.dev_server.host
         port = ::Rails.configuration.webpack.dev_server.port
