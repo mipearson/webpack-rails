@@ -12,6 +12,13 @@ module Webpack
         end
       end
 
+      # Raised if webpack couldn't build one of your entry points
+      class WebpackError < StandardError
+        def initialize(errors)
+          super "Error in webpack compile, details follow below:\n#{errors.join("\n\n")}"
+        end
+      end
+
       # Raised if a supplied entry point does not exist in the webpack manifest
       class EntryPointMissingError < StandardError
       end
@@ -19,6 +26,8 @@ module Webpack
       class << self
         # :nodoc:
         def asset_paths(source)
+          raise WebpackError, manifest["errors"] if manifest["errors"]
+
           paths = manifest["assetsByChunkName"][source]
           if paths
             # Can be either a string or an array of strings.

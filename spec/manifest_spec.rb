@@ -51,6 +51,13 @@ describe "Webpack::Rails::Manifest" do
 
         expect { Webpack::Rails::Manifest.asset_paths("entry1") }.to raise_error(Webpack::Rails::Manifest::ManifestLoadError)
       end
+
+      it "should error if webpack gives us an error in its manifest" do
+        error_manifest = JSON.parse(manifest).merge("errors" => ["something went wrong"]).to_json
+        stub_request(:get, "http://localhost:2000/public_path/my_manifest.json").to_return(body: error_manifest, status: 200)
+
+        expect { Webpack::Rails::Manifest.asset_paths("entry1") }.to raise_error(Webpack::Rails::Manifest::WebpackError)
+      end
     end
   end
 
