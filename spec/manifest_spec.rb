@@ -58,7 +58,14 @@ describe "Webpack::Rails::Manifest" do
 
         expect { Webpack::Rails::Manifest.asset_paths("entry1") }.to raise_error(Webpack::Rails::Manifest::WebpackError)
       end
+
+      it "should not error if errors is present but empty" do
+        error_manifest = JSON.parse(manifest).merge("errors" => []).to_json
+        stub_request(:get, "http://localhost:2000/public_path/my_manifest.json").to_return(body: error_manifest, status: 200)
+        expect { Webpack::Rails::Manifest.asset_paths("entry1") }.to_not raise_error
+      end
     end
+
   end
 
   context "with dev server disabled" do

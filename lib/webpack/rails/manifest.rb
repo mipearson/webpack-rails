@@ -26,7 +26,7 @@ module Webpack
       class << self
         # :nodoc:
         def asset_paths(source)
-          raise WebpackError, manifest["errors"] if manifest["errors"]
+          raise WebpackError, manifest["errors"] if manifest["errors"].present?
 
           paths = manifest["assetsByChunkName"][source]
           if paths
