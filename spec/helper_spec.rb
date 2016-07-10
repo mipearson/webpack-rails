@@ -27,8 +27,18 @@ describe 'webpack_asset_paths' do
     ::Rails.configuration.webpack.dev_server.port = 4000
 
     expect(webpack_asset_paths source).to eq([
-      "//localhost:4000/a/a.js", "//localhost:4000/b/b.css"
+      "http://localhost:4000/a/a.js", "http://localhost:4000/b/b.css"
     ])
+  end
+
+  it "should use https protocol when https is true" do
+    ::Rails.configuration.webpack.dev_server.https = true
+    expect(webpack_asset_paths(source, extension: 'js').first).to be_starts_with('https:')
+  end
+
+  it "should use http protocol when https is false" do
+    ::Rails.configuration.webpack.dev_server.https = false
+    expect(webpack_asset_paths(source, extension: 'js').first).to be_starts_with('http:')
   end
 
   it "should have the user talk to the specified dev server if it's enabled for each path returned from the manifest" do
@@ -37,7 +47,7 @@ describe 'webpack_asset_paths' do
     ::Rails.configuration.webpack.dev_server.host = 'webpack.host'
 
     expect(webpack_asset_paths source).to eq([
-      "//webpack.host:4000/a/a.js", "//webpack.host:4000/b/b.css"
+      "http://webpack.host:4000/a/a.js", "http://webpack.host:4000/b/b.css"
     ])
   end
 end
