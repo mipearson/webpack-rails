@@ -19,13 +19,14 @@ module Webpack
         paths = paths.select { |p| p.ends_with? ".#{extension}" } if extension
 
         port = ::Rails.configuration.webpack.dev_server.port
+        protocol = ::Rails.configuration.webpack.dev_server.https ? 'https' : 'http'
 
         host = ::Rails.configuration.webpack.dev_server.host
         host = instance_eval(&host) if host.respond_to?(:call)
 
         if ::Rails.configuration.webpack.dev_server.enabled
           paths.map! do |p|
-            "//#{host}:#{port}#{p}"
+            "#{protocol}://#{host}:#{port}#{p}"
           end
         end
 
