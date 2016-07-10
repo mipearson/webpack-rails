@@ -26,7 +26,7 @@ module Webpack
     # The host and port to use when fetching the manifest
     # This is helpful for e.g. docker containers, where the host and port you
     # use via the web browser is not the same as those that the containers use
-    # to communicate among eachother
+    # to communicate among each other
     config.webpack.dev_server.manifest_host = 'localhost'
     config.webpack.dev_server.manifest_port = 3808
 
