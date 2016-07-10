@@ -28,11 +28,7 @@ describe 'webpack_asset_paths' do
     ::Rails.configuration.webpack.dev_server.port = 4000
 
     expect(webpack_asset_paths source).to eq([
-<<<<<<< HEAD
-      "//webpack.host:4000/a/a.js", "//webpack.host:4000/b/b.css"
-=======
-      "http://localhost:4000/a/a.js", "http://localhost:4000/b/b.css"
->>>>>>> twojustin-explicit-protocol
+      "http://webpack.host:4000/a/a.js", "http://webpack.host:4000/b/b.css"
     ])
   end
 
@@ -65,7 +61,7 @@ describe 'webpack_asset_paths' do
     ::Rails.configuration.webpack.dev_server.host = proc { request.host }
 
     expect(webpack_asset_paths source).to eq([
-      "//evaluated:4000/a/a.js", "//evaluated:4000/b/b.css"
+      "http://evaluated:4000/a/a.js", "http://evaluated:4000/b/b.css"
     ])
   end
 end
