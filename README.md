@@ -70,6 +70,22 @@ Have a look at the files in the `examples` directory. Of note:
   * Webpacked assets will be compiled to `public/webpack`
   * The manifest file is named `manifest.json`
 
+#### Dynamic host
+
+To have the host evaluated at request-time, set `host` to a proc:
+
+```ruby
+config.webpack.dev_server.host = proc { request.host }
+```
+
+This is useful when accessing your Rails app over the network (remember to bind both your Rails app and your WebPack server to `0.0.0.0`).
+
+#### Use with docker-compose
+
+If you're running `webpack-dev-server` as part of docker compose rather than `foreman`, you might find that the host and port that rails needs to use to retrieve the manifest isn't the same as the host and port that you'll be giving to the browser to retrieve the assets.
+
+If so, you can set the `manifest_host` and `manifest_port` away from their default of `localhost` and port 3808.
+
 ### Working with browser tests
 
 In development, we make sure that the `webpack-dev-server` is running when browser tests are running.
@@ -79,12 +95,16 @@ In development, we make sure that the `webpack-dev-server` is running when brows
 In CI, we manually run `webpack` to compile the assets to public and set `config.webpack.dev_server.enabled` to `false` in our `config/environments/test.rb`:
 
 ``` ruby
-  config.webpack.dev_server.enabled = !ENV['CI']
+config.webpack.dev_server.enabled = !ENV['CI']
 ```
 
 ### Production Deployment
 
 Add `rake webpack:compile` to your deployment. It serves a similar purpose as Sprockets' `assets:precompile` task. If you're using Webpack and Sprockets (as we are at Marketplacer) you'll need to run both tasks - but it doesn't matter which order they're run in.
+
+If you deploy to Heroku, you can add the special
+[webpack-rails-buildpack](https://github.com/febeling/webpack-rails-buildpack)
+in order to perform this rake task on each deployment.
 
 If you're using `[chunkhash]` in your build asset filenames (which you should be, if you want to cache them in production), you'll need to persist built assets between deployments. Consider in-flight requests at the time of deployment: they'll receive paths based on the old `manifest.json`, not the new one.
 
