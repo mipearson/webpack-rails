@@ -70,6 +70,22 @@ Have a look at the files in the `examples` directory. Of note:
   * Webpacked assets will be compiled to `public/webpack`
   * The manifest file is named `manifest.json`
 
+#### Dynamic host
+
+To have the host evaluated at request-time, set `host` to a proc:
+
+```ruby
+config.webpack.dev_server.host = proc { request.host }
+```
+
+This is useful when accessing your Rails app over the network (remember to bind both your Rails app and your WebPack server to `0.0.0.0`).
+
+#### Use with docker-compose
+
+If you're running `webpack-dev-server` as part of docker compose rather than `foreman`, you might find that the host and port that rails needs to use to retrieve the manifest isn't the same as the host and port that you'll be giving to the browser to retrieve the assets.
+
+If so, you can set the `manifest_host` and `manifest_port` away from their default of `localhost` and port 3808.
+
 ### Working with browser tests
 
 In development, we make sure that the `webpack-dev-server` is running when browser tests are running.
@@ -79,7 +95,7 @@ In development, we make sure that the `webpack-dev-server` is running when brows
 In CI, we manually run `webpack` to compile the assets to public and set `config.webpack.dev_server.enabled` to `false` in our `config/environments/test.rb`:
 
 ``` ruby
-  config.webpack.dev_server.enabled = !ENV['CI']
+config.webpack.dev_server.enabled = !ENV['CI']
 ```
 
 ### Production Deployment
