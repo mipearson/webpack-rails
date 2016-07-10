@@ -1,7 +1,7 @@
 namespace :webpack do
   desc "Compile webpack bundles"
   task compile: :environment do
-    ENV["TARGET"] = 'production'
+    ENV["NODE_ENV"] = 'production'
     webpack_bin = ::Rails.root.join(::Rails.configuration.webpack.binary)
     config_file = ::Rails.root.join(::Rails.configuration.webpack.config_file)
 
