@@ -89,7 +89,9 @@ module WebpackRailsReact
       end
       insert_into_file 'app/views/layouts/application.html.erb', before: /<\/head>/ do
           <<-'RUBY'
-    <script src="http://localhost:3808/webpack-dev-server.js"></script>
+    <% if Rails.env.development? %>
+      <script src="http://localhost:3808/webpack-dev-server.js"></script>
+    <% end %>
           RUBY
       end
     end
