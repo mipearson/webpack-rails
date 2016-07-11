@@ -65,7 +65,28 @@ In CI, we manually run `webpack` to compile the assets to public and set `config
 
 ### Production Deployment
 
-Add `rake webpack:compile` to your deployment. It serves a similar purpose as Sprockets' `assets:precompile` task. If you're using Webpack and Sprockets (as we are at Marketplacer) you'll need to run both tasks - but it doesn't matter which order they're run in.
+If deploying to heroku, you will need to set your buildpacks before pushing. After adding the heroku git remote, run the below three commands:
+
+```
+  heroku buildpacks:clear
+  heroku buildpacks:set heroku/nodejs
+  heroku buildpacks:add heroku/ruby --index 2
+```
+
+This will set the Node.js buildpack to run first, followed by the Ruby buildpack. To confirm that your buildpacks are set correctly, run `heroku buildpacks`. You should see Node.js listed first and Ruby second.
+
+Next you will need to set up a post build hook to bundle Webpack. Include the below scripts in `package.json`. For the Webpack deployment script, ensure that the route for your `webpack.config.js` file is correct.
+
+``` javascript
+  "scripts": {
+    "webpack:deploy": "webpack --config=config/webpack.config.js -p",
+    "heroku-postbuild": "npm run webpack:deploy"
+  }
+```
+
+Lastly, ensure that all Babel related modules are listed as dependencies and not dev dependencies in `package.json`. At this point, you should be able to push to Heroku.
+
+An alternative to adding the post build hook to `package.json` is to add `rake webpack:compile` to your deployment. It serves a similar purpose as Sprockets' `assets:precompile` task. If you're using Webpack and Sprockets (as we are at Marketplacer) you'll need to run both tasks - but it doesn't matter which order they're run in.
 
 If you're using `[chunkhash]` in your build asset filenames (which you should be, if you want to cache them in production), you'll need to persist built assets between deployments. Consider in-flight requests at the time of deployment: they'll receive paths based on the old `manifest.json`, not the new one.
 
