@@ -1,3 +1,5 @@
+require "English"
+
 namespace :webpack do
   desc "Compile webpack bundles"
   task compile: :environment do
