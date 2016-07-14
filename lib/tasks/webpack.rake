@@ -18,6 +18,6 @@ namespace :webpack do
 
     result = `#{webpack_bin} --bail --config #{config_file} 2>&1`
     puts result
-    raise result unless $CHILD_STATUS == 0
+    raise result unless $CHILD_STATUS.exitstatus == 0
   end
 end
