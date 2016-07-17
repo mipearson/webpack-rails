@@ -16,7 +16,6 @@ namespace :webpack do
       raise "Can't find our webpack config file at #{config_file}"
     end
 
-    result = `#{webpack_bin} --bail --config #{config_file} 2>&1`
-    raise result unless $CHILD_STATUS == 0
+    sh "#{webpack_bin} --bail --config #{config_file}"
   end
 end
