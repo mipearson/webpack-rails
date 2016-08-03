@@ -2,6 +2,10 @@
   "name": "webpack-rails",
   "version": "0.0.1",
   "license": "MIT",
+  "scripts": {
+    "dev_server": "./node_modules/.bin/webpack-dev-server --config config/webpack.config.js",
+    "build": "webpack --config=config/webpack.config.js -p"
+  },
   "dependencies": {
     "react": "^15.1.0",
     "react-dom": "^15.1.0",

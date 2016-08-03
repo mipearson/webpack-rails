@@ -101,6 +101,15 @@ If you're using `[chunkhash]` in your build asset filenames (which you should be
 * Add eslint to client
 * Integration tests
 
+
+## Experimental
+A view generator has been added.
+
+  1.Generate a controller
+  2.Add at least an index route for the controller
+  3.rails g webpack_rails_react:view name_of_view (should be singular and match controller)
+
+
 ## Contributing
 
 Pull requests & issues welcome. Advice & criticism regarding webpack config approach also welcome.

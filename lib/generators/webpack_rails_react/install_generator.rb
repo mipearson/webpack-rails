@@ -7,18 +7,6 @@ module WebpackRailsReact
     class_option :router, type: :boolean, default: false, description: 'Add React Router'
     class_option :redux, type: :boolean, default: false, description: 'Add Redux'
 
-    def add_foreman_to_gemfile
-      gem 'foreman'
-    end
-
-    def copy_procfile
-      if File.exists? "Procfile"
-        append_file "Procfile", "webpack: ./node_modules/.bin/webpack-dev-server --config config/webpack.config.js"
-      else
-        copy_file "Procfile", "Procfile"
-      end
-    end
-
     def copy_package_json
       copy_file "package.json", "package.json"
 
@@ -82,17 +70,23 @@ module WebpackRailsReact
         copy_file "boilerplate/App.js", "webpack/containers/App.js"
       end
 
-      insert_into_file 'app/views/layouts/application.html.erb', before: /<\/body>/ do
-          <<-'RUBY'
-<%= javascript_include_tag *webpack_asset_paths('application') %>
-          RUBY
-      end
-      insert_into_file 'app/views/layouts/application.html.erb', before: /<\/head>/ do
-          <<-'RUBY'
-    <% if Rails.env.development? %>
-      <script src="http://localhost:3808/webpack-dev-server.js"></script>
-    <% end %>
-          RUBY
+      application_view = 'app/views/layouts/application.html.erb'
+
+      if File.exists? application_view
+        insert_into_file 'app/views/layouts/application.html.erb', before: /<\/body>/ do
+            <<-'RUBY'
+<%= ja  vascript_include_tag *webpack_asset_paths('application') %>
+            RUBY
+        end
+        insert_into_file 'app/views/layouts/application.html.erb', before: /<\/head>/ do
+            <<-'RUBY'
+      <% if Rails.env.development? %>
+        <script src="http://localhost:3808/webpack-dev-server.js"></script>
+      <% end %>
+            RUBY
+        end
+      else
+        puts "\n\n***WARNING*** HAML NOT SUPPORTED IN applictaion.html additional steps required\n\n"
       end
     end
 
@@ -110,10 +104,6 @@ module WebpackRailsReact
       run "npm install" if yes?("Would you like us to run 'npm install' for you?")
     end
 
-    def run_bundle_install
-      run "bundle install" if yes?("Would you like us to run 'bundle install' for you?")
-    end
-
     def whats_next
       puts <<-EOF.strip_heredoc
 
@@ -122,8 +112,9 @@ module WebpackRailsReact
 
           1. Add an element with an id of 'app' to your layout
           2. To disable hot module replacement remove <script src="http://localhost:3808/webpack-dev-server.js"></script> from layout
-          3. Run 'foreman start' to run the webpack-dev-server and rails server
-          4. If you are using react-router and want to sync server routes add:
+          3. Run 'npm run dev_server' to run the webpack-dev-server
+          4. Run 'bundle exec rails s' to run the rails server (both servers must be running)
+          5. If you are using react-router and want to sync server routes add:
              get '*unmatched_route', to: <your client controller>#<default action>
              This must be the very last route in your routes.rb file
              e.g. get '*unmatched_route', to: 'home#index'
