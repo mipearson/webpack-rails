@@ -37,9 +37,15 @@ module WebpackRailsReact
     def create_rails_view
       name = @view.downcase.gsub(/ /, '_')
       empty_directory "app/views/#{name.pluralize}"
-      file = "app/views/#{name.pluralize}/index.html.erb"
-      copy_file "boilerplate/views/rails_view.html.erb", file
-      gsub_file file, /placeholder/, name
+      if Gem.loaded_specs.has_key? 'haml-rails'
+        file = "app/views/#{name.pluralize}/index.html.haml"
+        copy_file "boilerplate/views/rails_view.html.haml", file
+        gsub_file file, /placeholder/, name
+      else
+        file = "app/views/#{name.pluralize}/index.html.erb"
+        copy_file "boilerplate/views/rails_view.html.erb", file
+        gsub_file file, /placeholder/, name
+      end
     end
   end
 end

@@ -70,23 +70,48 @@ module WebpackRailsReact
         copy_file "boilerplate/App.js", "webpack/containers/App.js"
       end
 
-      application_view = 'app/views/layouts/application.html.erb'
+      haml_installed = Gem.loaded_specs.has_key? 'haml-rails'
+      layouts_dir = 'app/views/layouts'
 
-      if File.exists? application_view
-        insert_into_file 'app/views/layouts/application.html.erb', before: /<\/body>/ do
-            <<-'RUBY'
-<%= ja  vascript_include_tag *webpack_asset_paths('application') %>
-            RUBY
+      application_view = haml_installed ? "#{layouts_dir}/application.html.haml" : "#{layouts_dir}/application.html.erb"
+
+      if haml_installed
+        # convert views to haml
+        begin
+          require 'html2haml'
+        rescue LoadError
+          `gem install html2haml`
         end
-        insert_into_file 'app/views/layouts/application.html.erb', before: /<\/head>/ do
+        `find . -name \*.erb -print | sed 'p;s/.erb$/.haml/' | xargs -n2 html2haml`
+        `rm #{layouts_dir}/application.html.erb`
+
+        insert_into_file application_view, before: /%body/ do
+          <<-'RUBY'
+    - if Rails.env.development?
+      %script{:src => "http://localhost:3808/webpack-dev-server.js"}
+          RUBY
+        end
+
+        insert_into_file application_view, after: /= yield/ do
             <<-'RUBY'
-      <% if Rails.env.development? %>
-        <script src="http://localhost:3808/webpack-dev-server.js"></script>
-      <% end %>
+
+    = javascript_include_tag *webpack_asset_paths('application')
             RUBY
         end
       else
-        puts "\n\n***WARNING*** HAML NOT SUPPORTED IN applictaion.html additional steps required\n\n"
+        insert_into_file application_view, before: /<\/head>/ do
+          <<-'RUBY'
+<% if Rails.env.development? %>
+  <script src="http://localhost:3808/webpack-dev-server.js"></script>
+<% end %>
+          RUBY
+        end
+
+        insert_into_file application_view, before: /<\/body>/ do
+          <<-'RUBY'
+<%= javascript_include_tag *webpack_asset_paths('application') %>
+          RUBY
+        end
       end
     end
 
