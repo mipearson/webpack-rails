@@ -1,5 +1,9 @@
 [![Build Status](https://travis-ci.org/mipearson/webpack-rails.svg?branch=master)](https://travis-ci.org/mipearson/webpack-rails) [![Gem Version](https://badge.fury.io/rb/webpack-rails.svg)](http://badge.fury.io/rb/webpack-rails)
 
+# Notice!
+
+**As of 19th Sep 2016 there is an issue between the latest version of `webpack-dev-middleware` & `stats-webpack-plugin` where the manifest file is not appearing when the dev server is run. See https://github.com/mipearson/webpack-rails/issues/58 for more information and a workaround.**
+
 # webpack-rails
 
 **webpack-rails** gives you tools to integrate Webpack in to an existing Ruby on Rails application.
