@@ -5,6 +5,7 @@ describe "Webpack::Rails::Manifest" do
   let(:manifest) do
     <<-EOF
       {
+        "errors": [],
         "assetsByChunkName": {
           "entry1": [ "entry1.js", "entry1-a.js" ],
           "entry2": "entry2.js"
@@ -55,17 +56,33 @@ describe "Webpack::Rails::Manifest" do
         expect { Webpack::Rails::Manifest.asset_paths("entry1") }.to raise_error(Webpack::Rails::Manifest::ManifestLoadError)
       end
 
-      it "should error if webpack gives us an error in its manifest" do
-        error_manifest = JSON.parse(manifest).merge("errors" => ["something went wrong"]).to_json
-        stub_request(:get, "http://server-host:4000/public_path/my_manifest.json").to_return(body: error_manifest, status: 200)
+      describe "webpack errors" do
+        context "when webpack has 'Module build failed' errors in its manifest" do
+          it "should error" do
+            error_manifest = JSON.parse(manifest).merge("errors" => [
+              "somethingModule build failed something",
+              "I am an error"
+            ]).to_json
+            stub_request(:get, "http://server-host:4000/public_path/my_manifest.json").to_return(body: error_manifest, status: 200)
 
-        expect { Webpack::Rails::Manifest.asset_paths("entry1") }.to raise_error(Webpack::Rails::Manifest::WebpackError)
-      end
+            expect { Webpack::Rails::Manifest.asset_paths("entry1") }.to raise_error(Webpack::Rails::Manifest::WebpackError)
+          end
+        end
 
-      it "should not error if errors is present but empty" do
-        error_manifest = JSON.parse(manifest).merge("errors" => []).to_json
-        stub_request(:get, "http://server-host:4000/public_path/my_manifest.json").to_return(body: error_manifest, status: 200)
-        expect { Webpack::Rails::Manifest.asset_paths("entry1") }.to_not raise_error
+        context "when webpack does not have 'Module build failed' errors in its manifest" do
+          it "should not error" do
+            error_manifest = JSON.parse(manifest).merge("errors" => ["something went wrong"]).to_json
+            stub_request(:get, "http://server-host:4000/public_path/my_manifest.json").to_return(body: error_manifest, status: 200)
+
+            expect { Webpack::Rails::Manifest.asset_paths("entry1") }.to_not raise_error
+          end
+        end
+
+        it "should not error if errors is present but empty" do
+          error_manifest = JSON.parse(manifest).merge("errors" => []).to_json
+          stub_request(:get, "http://server-host:4000/public_path/my_manifest.json").to_return(body: error_manifest, status: 200)
+          expect { Webpack::Rails::Manifest.asset_paths("entry1") }.to_not raise_error
+        end
       end
     end
 
