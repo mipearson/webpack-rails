@@ -26,7 +26,7 @@ module Webpack
       class << self
         # :nodoc:
         def asset_paths(source)
-          raise WebpackError, manifest["errors"] if manifest["errors"].present?
+          raise WebpackError, manifest["errors"] unless manifest_bundled?
 
           paths = manifest["assetsByChunkName"][source]
           if paths
@@ -41,6 +41,10 @@ module Webpack
         end
 
         private
+
+        def manifest_bundled?
+          !manifest["errors"].any? { |error| error.include? "Module build failed" }
+        end
 
         def manifest
           if ::Rails.configuration.webpack.dev_server.enabled
