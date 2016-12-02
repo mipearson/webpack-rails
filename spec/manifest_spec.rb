@@ -85,7 +85,6 @@ describe "Webpack::Rails::Manifest" do
         end
       end
     end
-
   end
 
   context "with dev server disabled" do
