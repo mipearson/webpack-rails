@@ -2,6 +2,10 @@
   "name": "webpack-rails-example",
   "version": "0.0.1",
   "license": "MIT",
+  "scripts": {
+    "compile":  "webpack -d --config config/webpack.config.js",
+    "serve": "webpack-dev-server -p --config config/webpack.config.js"
+  },
   "dependencies": {
     "stats-webpack-plugin": "^0.2.1",
     "webpack": "^1.9.11",
