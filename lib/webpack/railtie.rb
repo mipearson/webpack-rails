@@ -30,7 +30,9 @@ module Webpack
     config.webpack.dev_server.manifest_host = 'localhost'
     config.webpack.dev_server.manifest_port = 3808
 
-    config.webpack.dev_server.https = false # note - this will use OpenSSL::SSL::VERIFY_NONE
+    config.webpack.dev_server.https = false
+    # change below option to false if you don't care about security
+    config.webpack.dev_server.https_verify_peer = true
     config.webpack.dev_server.binary = 'node_modules/.bin/webpack-dev-server'
     config.webpack.dev_server.enabled = ::Rails.env.development? || ::Rails.env.test?
 
