@@ -6,4 +6,4 @@
  * Change dependency to railties (Mike Auclair <mike@mikeauclair.com>)
  * Only enable dev server in development & test (Agis Anastasopoulos <agis.anast@gmail.com>)
  * Use existing NODE_ENV if available (Alex <alexkrolick@users.noreply.github.com>)
-
+ * Switched README & generators to use yarn over npm
