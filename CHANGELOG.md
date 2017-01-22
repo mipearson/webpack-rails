@@ -7,3 +7,4 @@
  * Only enable dev server in development & test (Agis Anastasopoulos <agis.anast@gmail.com>)
  * Use existing NODE_ENV if available (Alex <alexkrolick@users.noreply.github.com>)
  * Switched README & generators to use yarn over npm
+ * Allow SSL certificate verification for localhost connections (Marek Hulan <mhulan@redhat.com>)
