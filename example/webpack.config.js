@@ -32,6 +32,13 @@ var config = {
     root: path.join(__dirname, '..', 'webpack')
   },
 
+  module: {
+    loaders: [{
+      exclude: /node_modules/,
+      loader: 'babel'
+    }]
+  },
+
   plugins: [
     // must match config.webpack.manifest_filename
     new StatsPlugin('manifest.json', {

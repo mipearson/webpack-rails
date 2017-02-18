@@ -17,6 +17,10 @@ module WebpackRails
       copy_file "package.json", "package.json"
     end
 
+    def copy_babel_conf
+      copy_file ".babelrc", ".babelrc"
+    end
+
     def copy_webpack_conf
       copy_file "webpack.config.js", "config/webpack.config.js"
     end
