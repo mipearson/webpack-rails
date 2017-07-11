@@ -40,8 +40,8 @@ module WebpackRails
       end
     end
 
-    def run_npm_install
-      run "npm install" if yes?("Would you like us to run 'npm install' for you?")
+    def run_yarn_install
+      run "yarn install" if yes?("Would you like us to run 'yarn install' for you?")
     end
 
     def run_bundle_install
