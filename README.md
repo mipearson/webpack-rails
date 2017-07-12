@@ -4,7 +4,7 @@
 
 **webpack-rails** gives you tools to integrate Webpack in to an existing Ruby on Rails application.
 
-It will happily co-exist with sprockets but does not use it for production fingerprinting or asset serving. **webpack-rails** is designed with the assumption that if you're using Webpack you treat Javascript as a first-class citizen. This means that you control the webpack config, package.json, and use npm to install Webpack & its plugins.
+It will happily co-exist with sprockets but does not use it for production fingerprinting or asset serving. **webpack-rails** is designed with the assumption that if you're using Webpack you treat Javascript as a first-class citizen. This means that you control the webpack config, package.json, and use yarn to install Webpack & its plugins.
 
 In development mode [webpack-dev-server](http://webpack.github.io/docs/webpack-dev-server.html) is used to serve webpacked entry points and offer hot module reloading. In production entry points are built in to `public/webpack`. **webpack-rails** uses [stats-webpack-plugin](https://www.npmjs.com/package/stats-webpack-plugin) to translate entry points in to asset paths.
 
@@ -20,6 +20,7 @@ This gem has been tested against Rails 4.2 and Ruby 2.2. Earlier versions of Rai
 
 ### Installation
 
+  1. Install [yarn](https://yarnpkg.com/en/docs/install) if you haven't already
   1. Add `webpack-rails` to your gemfile
   1. Run `bundle install` to install the gem
   1. Run `bundle exec rails generate webpack_rails:install` to copy across example files
