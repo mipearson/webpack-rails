@@ -14,6 +14,8 @@ namespace :webpack do
       raise "Can't find our webpack config file at #{config_file}"
     end
 
+    webpack_bin = Shellwords.escape(webpack_bin)
+    config_file = Shellwords.escape(config_file)
     sh "#{webpack_bin} --config #{config_file} --bail"
   end
 end
