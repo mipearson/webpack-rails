@@ -1,3 +1,7 @@
+# No Longer Maintained
+
+Hi! `webpack-rails` is no longer being maintained. Please see #90 for more info.
+
 [![Build Status](https://travis-ci.org/mipearson/webpack-rails.svg?branch=master)](https://travis-ci.org/mipearson/webpack-rails) [![Gem Version](https://badge.fury.io/rb/webpack-rails.svg)](http://badge.fury.io/rb/webpack-rails)
 
 # webpack-rails
