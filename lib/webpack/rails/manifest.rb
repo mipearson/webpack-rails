@@ -69,7 +69,7 @@ module Webpack
           host = ::Rails.configuration.webpack.dev_server.manifest_host
           port = ::Rails.configuration.webpack.dev_server.manifest_port
           http = Net::HTTP.new(host, port)
-          http.use_ssl = ::Rails.configuration.webpack.dev_server.https
+          http.use_ssl = ::Rails.configuration.webpack.dev_server.manifest_https
           http.verify_mode = ::Rails.configuration.webpack.dev_server.https_verify_peer ? OpenSSL::SSL::VERIFY_PEER : OpenSSL::SSL::VERIFY_NONE
           http.get(dev_server_path).body
         rescue => e
